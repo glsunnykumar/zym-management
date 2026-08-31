@@ -163,15 +163,12 @@ export class MembersListComponent {
   ngOnInit(): void {
     this.facade.loadMembers();
     this.planService.getPlans().subscribe((plans) => {
-      console.log('Plans', plans);
       this.plans.set(plans);
     });
   }
 
   onAddMember(): void {
     const route = '/members/create';
-
-    console.log('Navigating to:', route);
 
     this.router.navigate([route]);
   }

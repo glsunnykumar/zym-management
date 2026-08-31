@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  computed,
-  inject,
-  signal
-} from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
@@ -15,23 +9,29 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { Trainer } from '../../models/trainer.model';
 import { TrainerService } from '../../services/trainer.service';
-import { DataTableComponent } from "../../../../shared/components/data-table/data-table.component";
-import { MatOption, MatSelect, MatFormField, MatLabel } from "@angular/material/select";
-import { SearchToolbarComponent } from "../../../../shared/components/search-toolbar/search-toolbar.component";
-import { PageHeaderComponent } from "../../../../shared/ui/layout/page-header/page-header.component";
-import { PageLayoutComponent } from "../../../../shared/ui/layout/page-layout/page-layout.component";
+import { DataTableComponent } from '../../../../shared/components/data-table/data-table.component';
+import {
+  MatOption,
+  MatSelect,
+  MatFormField,
+  MatLabel,
+} from '@angular/material/select';
+import { SearchToolbarComponent } from '../../../../shared/components/search-toolbar/search-toolbar.component';
+import { PageHeaderComponent } from '../../../../shared/ui/layout/page-header/page-header.component';
+import { PageLayoutComponent } from '../../../../shared/ui/layout/page-layout/page-layout.component';
 import { TableColumn } from '../../../../shared/models/table-column.model';
 import { TableAction } from '../../../../shared/models/table-action.model';
-import { TableEvent } from '../../../../shared/models/table-event.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'gf-trainer-list',
   standalone: true,
   imports: [
     CommonModule,
-     ReactiveFormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     FormsModule,
     MatButtonModule,
@@ -43,161 +43,116 @@ import { MatInputModule } from '@angular/material/input';
     MatLabel,
     SearchToolbarComponent,
     PageHeaderComponent,
-    PageLayoutComponent
-],
+    PageLayoutComponent,
+  ],
   templateUrl: './trainer-list.component.html',
-  styleUrl: './trainer-list.component.scss'
+  styleUrl: './trainer-list.component.scss',
 })
 export class TrainerListComponent implements OnInit {
+  private readonly trainerService = inject(TrainerService);
 
-  private readonly trainerService =
-    inject(TrainerService);
+  private readonly router = inject(Router);
 
-  private readonly router =
-    inject(Router);
+  readonly trainers = signal<Trainer[]>([]);
 
-  readonly trainers =
-    signal<Trainer[]>([]);
+  readonly loading = signal(true);
 
-  readonly loading =
-    signal(true);
+  readonly trainersVm = signal<Trainer[]>([]);
 
+  readonly search = signal('');
 
-    readonly trainersVm =
-  signal<Trainer[]>([]);
+  readonly statusFilter = signal('');
 
-readonly search =
-  signal('');
+  private readonly dialog = inject(MatDialog);
 
-readonly statusFilter =
-  signal('');
+  readonly columns: TableColumn<Trainer>[] = [
+    {
+      key: 'fullName',
+      label: 'Name',
+    },
 
+    {
+      key: 'phone',
+      label: 'Phone',
+    },
 
-    readonly columns: TableColumn<Trainer>[] = [
+    {
+      key: 'specialization',
+      label: 'Specialization',
+    },
 
-  {
-    key: 'fullName',
-    label: 'Name'
-  },
+    {
+      key: 'salary',
+      label: 'Salary',
+    },
 
-  {
-    key: 'phone',
-    label: 'Phone'
-  },
+    {
+      key: 'status',
+      label: 'Status',
+    },
+  ];
 
-  {
-    key: 'specialization',
-    label: 'Specialization'
-  },
+  readonly actions: TableAction<Trainer>[] = [
+    {
+      id: 'view',
+      label: 'View',
+      icon: 'visibility',
+    },
 
-  {
-    key: 'salary',
-    label: 'Salary'
-  },
+    {
+      id: 'edit',
+      label: 'Edit',
+      icon: 'edit',
+    },
 
-  {
-    key: 'status',
-    label: 'Status'
-  }
+    {
+      id: 'delete',
+      label: 'Delete',
+      icon: 'delete',
+      color: 'warn',
+    },
+  ];
 
-];
+  readonly filteredTrainers = computed(() => {
+    let data = [...this.trainersVm()];
 
-readonly actions: TableAction<Trainer>[] = [
+    const search = this.search().toLowerCase().trim();
 
-  {
-    id: 'view',
-    label: 'View',
-    icon: 'visibility'
-  },
-
-  {
-    id: 'edit',
-    label: 'Edit',
-    icon: 'edit'
-  },
-
-  {
-    id: 'delete',
-    label: 'Delete',
-    icon: 'delete',
-    color: 'warn'
-  }
-
-];
-
-readonly filteredTrainers = computed(() => {
-
-  let data =
-    [...this.trainersVm()];
-
-  const search =
-    this.search()
-      .toLowerCase()
-      .trim();
-
-  if (search) {
-
-    data =
-      data.filter(t =>
-
-        t.fullName
-          .toLowerCase()
-          .includes(search)
-
-        ||
-
-        t.phone
-          .toLowerCase()
-          .includes(search)
-
-        ||
-
-        t.specialization
-          .toLowerCase()
-          .includes(search)
-
+    if (search) {
+      data = data.filter(
+        (t) =>
+          t.fullName.toLowerCase().includes(search) ||
+          t.phone.toLowerCase().includes(search) ||
+          t.specialization.toLowerCase().includes(search),
       );
+    }
 
-  }
+    const status = this.statusFilter();
 
-  const status =
-    this.statusFilter();
+    if (status) {
+      data = data.filter((t) => t.status === status);
+    }
 
-  if (status) {
-
-    data =
-      data.filter(
-        t => t.status === status
-      );
-
-  }
-
-  return data;
-
-});
+    return data;
+  });
 
   ngOnInit(): void {
+    this.trainerService.getTrainers().subscribe((data) => {
+      console.log('trainer data is', data);
 
-    this.trainerService
-      .getTrainers()
-      .subscribe(data => {
+      this.trainers.set(data);
 
-        this.trainers.set(data);
+      this.trainersVm.set(data);
 
-        this.loading.set(false);
+      console.log('trainersVm', this.trainersVm());
 
-      });
-
+      this.loading.set(false);
+    });
   }
 
   onAddTrainer(): void {
-
-  this.router.navigate([
-    '/trainers/create'
-  ]);
-
-}
-
+    this.router.navigate(['/trainers/create']);
+  }
 
   onTableEvent(event: any): void {
     console.log('Table event:', event);
@@ -223,53 +178,38 @@ readonly filteredTrainers = computed(() => {
   }
 
   addTrainer(): void {
-
-    this.router.navigate([
-      '/trainers/create'
-    ]);
-
+    this.router.navigate(['/trainers/create']);
   }
 
-  viewTrainer(
-    trainer: Trainer
-  ): void {
-
-    this.router.navigate([
-      '/trainers',
-      trainer.id
-    ]);
-
+  viewTrainer(trainer: Trainer): void {
+    this.router.navigate(['/trainers', trainer.id]);
   }
 
-  editTrainer(
-    trainer: Trainer
-  ): void {
-
-    this.router.navigate([
-      '/trainers',
-      trainer.id,
-      'edit'
-    ]);
-
+  editTrainer(trainer: Trainer): void {
+    this.router.navigate(['/trainers', trainer.id, 'edit']);
   }
 
-  async deleteTrainer(
-    trainer: Trainer
-  ): Promise<void> {
+  async deleteTrainer(trainer: Trainer): Promise<void> {
+    const confirmed = await this.dialog
+      .open(ConfirmDialogComponent, {
+        width: '420px',
 
-    const confirmed =
-      confirm(
-        `Delete ${trainer.fullName}?`
-      );
+        data: {
+          title: 'Delete Trainer',
+
+          message: `Are you sure you want to delete ${trainer.fullName}?`,
+
+          confirmText: 'Delete',
+          cancelText: 'Cancel',
+        },
+      })
+      .afterClosed()
+      .toPromise();
 
     if (!confirmed) {
       return;
     }
 
-    await this.trainerService.deleteTrainer(
-      trainer.id
-    );
-
+    await this.trainerService.deleteTrainer(trainer.id);
   }
-
 }
