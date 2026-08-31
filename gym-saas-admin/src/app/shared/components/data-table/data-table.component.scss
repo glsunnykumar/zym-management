@@ -1,0 +1,573 @@
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.data-table-container {
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: var(--gf-surface);
+
+  border: 1px solid var(--gf-border);
+  border-radius: var(--gf-radius-lg);
+
+  box-shadow: var(--gf-shadow-sm);
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.data-table-wrapper {
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: auto;
+   overflow-y: hidden; // add this
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.data-table {
+  width: 100%;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  color: var(--gf-text-primary);
+
+  font-family: var(--gf-font-family);
+  font-size: var(--gf-font-sm);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.data-table thead {
+  background: var(--gf-surface-variant);
+}
+
+.data-table thead.sticky th {
+  position: static;
+}
+
+
+.data-table th {
+  padding:
+    var(--gf-space-3)
+    var(--gf-space-4);
+
+  text-align: left;
+
+  font-size: var(--gf-font-xs);
+  font-weight: var(--gf-font-semibold);
+
+  color: var(--gf-text-secondary);
+
+  white-space: nowrap;
+
+  user-select: none;
+
+  border-bottom:
+    1px solid
+    var(--gf-border);
+}
+
+
+/* =========================================================
+   SORTING
+   ========================================================= */
+
+.data-table th.sortable {
+  cursor: pointer;
+}
+
+.data-table th.sortable:hover {
+  color: var(--gf-text-primary);
+
+  background: var(--gf-hover);
+}
+
+.data-table th.sorted {
+  color: var(--gf-primary);
+}
+
+
+.column-header {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: var(--gf-space-1);
+}
+
+
+.sort-icon {
+  width: 18px;
+  height: 18px;
+
+  font-size: 18px;
+
+  opacity: 0.55;
+}
+
+
+.sorted .sort-icon {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   CELLS
+   ========================================================= */
+
+.data-table td {
+  padding:
+    var(--gf-space-4)
+    var(--gf-space-4);
+
+  vertical-align: middle;
+
+  border-bottom:
+    1px solid
+    var(--gf-border);
+
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+
+/* =========================================================
+   ROWS
+   ========================================================= */
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+
+.data-table tbody tr.clickable {
+  cursor: pointer;
+}
+
+
+.data-table tbody tr.clickable:hover td {
+  background: var(--gf-hover);
+}
+
+
+.data-table tbody tr.selected td {
+  background: var(--gf-selected);
+}
+
+
+.data-table tbody tr.selected:hover td {
+  background: var(--gf-selected);
+}
+
+
+/* =========================================================
+   ALIGNMENT
+   ========================================================= */
+
+.align-center {
+  text-align: center !important;
+}
+
+
+.align-end {
+  text-align: right !important;
+}
+
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+.selection-column {
+  width: 52px;
+
+  padding-left:
+    var(--gf-space-3) !important;
+
+  padding-right:
+    var(--gf-space-2) !important;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.actions-column {
+  width: 1%;
+
+  white-space: nowrap;
+}
+
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+
+.row-actions {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: var(--gf-space-1);
+}
+
+
+.row-actions button {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.data-table-wrapper.is-loading {
+  min-height: 180px;
+}
+
+
+.loading-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 5;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: color-mix(
+    in srgb,
+    var(--gf-surface) 82%,
+    transparent
+  );
+
+  backdrop-filter: blur(1px);
+}
+
+
+.loading-content {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: var(--gf-space-3);
+
+  color: var(--gf-text-secondary);
+
+  font-size: var(--gf-font-sm);
+}
+
+
+.spinner {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid var(--gf-border);
+
+  border-top-color: var(--gf-primary);
+
+  border-radius: 50%;
+
+  animation:
+    gf-table-spin
+    700ms
+    linear
+    infinite;
+}
+
+
+@keyframes gf-table-spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-container {
+  padding: var(--gf-space-8);
+}
+
+
+/* =========================================================
+   PAGINATOR
+   ========================================================= */
+
+.table-paginator {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  min-height: 56px;
+
+  border-top:
+    1px solid
+    var(--gf-border);
+
+  background: var(--gf-surface);
+}
+
+
+.table-paginator mat-paginator {
+  width: 100%;
+
+  background: transparent;
+
+  color: var(--gf-text-primary);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+  .column-optional {
+    display: none;
+  }
+
+
+  .data-table th,
+  .data-table td {
+    padding:
+      var(--gf-space-3)
+      var(--gf-space-3);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .column-optional {
+    display: none;
+  }
+
+
+  .data-table {
+    min-width: 0;
+  }
+
+
+  .table-paginator {
+    justify-content: center;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE — CARD STYLE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+  .data-table-wrapper {
+    overflow: visible;
+  }
+
+
+  .data-table {
+    min-width: 0;
+  }
+
+
+  .data-table thead {
+    display: none;
+  }
+
+
+  .data-table,
+  .data-table tbody,
+  .data-table tr,
+  .data-table td {
+    display: block;
+
+    width: 100%;
+  }
+
+
+  .data-table tbody {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--gf-space-3);
+
+    padding: var(--gf-space-3);
+  }
+
+
+  .data-table tbody tr {
+    position: relative;
+
+    padding: var(--gf-space-3);
+
+    background: var(--gf-surface);
+
+    border:
+      1px solid
+      var(--gf-border);
+
+    border-radius:
+      var(--gf-radius-md);
+
+    box-shadow:
+      var(--gf-shadow-sm);
+  }
+
+
+  .data-table td {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--gf-space-4);
+
+    padding:
+      var(--gf-space-2)
+      0;
+
+    text-align: right !important;
+
+    border-bottom:
+      1px solid
+      var(--gf-border);
+  }
+
+
+  .data-table td::before {
+    content:
+      attr(data-label);
+
+    flex-shrink: 0;
+
+    color:
+      var(--gf-text-secondary);
+
+    font-size:
+      var(--gf-font-xs);
+
+    font-weight:
+      var(--gf-font-semibold);
+
+    text-align: left;
+  }
+
+
+  .data-table td:last-child {
+    border-bottom: 0;
+  }
+
+
+  .column-secondary {
+    display: flex;
+  }
+
+
+  .column-optional {
+    display: none !important;
+  }
+
+
+  .selection-column {
+    width: 100%;
+
+    justify-content: flex-start !important;
+
+    padding:
+      0 0
+      var(--gf-space-2) !important;
+  }
+
+
+  .selection-column::before {
+    display: none;
+  }
+
+
+  .actions-cell {
+    justify-content:
+      space-between !important;
+  }
+
+
+  .row-actions {
+    justify-content:
+      flex-end;
+  }
+
+
+  .table-paginator {
+    overflow-x: auto;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (
+  prefers-reduced-motion: reduce
+) {
+
+  .spinner {
+    animation-duration: 1.5s;
+  }
+
+  .data-table td {
+    transition: none;
+  }
+
+}

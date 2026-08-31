@@ -1,0 +1,133 @@
+.app-card {
+
+  border-radius: 18px;
+
+  border: 1px solid var(--border);
+
+  overflow: hidden;
+
+  background: var(--surface);
+
+}
+
+.elevated {
+
+  box-shadow: var(--shadow);
+
+}
+
+.card-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 20px 24px;
+
+}
+
+.header-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+}
+
+.icon {
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: rgba(59,130,246,.12);
+
+}
+
+.icon mat-icon {
+
+  color: var(--primary);
+
+}
+
+h2 {
+
+  margin: 0;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+}
+
+p {
+
+  margin: 4px 0 0;
+
+  color: var(--text-secondary);
+
+}
+
+.card-content.none {
+
+  padding: 0;
+
+}
+
+.card-content.sm {
+
+  padding: 12px;
+
+}
+
+.card-content.md {
+
+  padding: 20px;
+
+}
+
+.card-content.lg {
+
+  padding: 32px;
+
+}
+
+.card-footer {
+
+  padding: 16px 24px;
+
+}
+
+@media(max-width:768px){
+
+.card-header{
+
+padding:16px;
+
+}
+
+.card-content.md{
+
+padding:16px;
+
+}
+
+.card-content.lg{
+
+padding:20px;
+
+}
+
+}

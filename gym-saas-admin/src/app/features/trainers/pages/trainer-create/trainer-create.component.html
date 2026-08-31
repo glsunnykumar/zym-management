@@ -1,0 +1,20 @@
+<div class="page">
+
+  <div class="page-header">
+
+    <h2>
+      Add Trainer
+    </h2>
+
+    <p>
+      Create a new trainer profile
+    </p>
+
+  </div>
+
+  <gf-trainer-form
+    (save)="createTrainer($event)"
+    (cancel)="goBack()">
+  </gf-trainer-form>
+
+</div>

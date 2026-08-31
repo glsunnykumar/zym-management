@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-page">
+
+  <div class="login-container">
+
+    <div class="logo-section">
+      <img src="assets/logo.png" alt="Logo" />
+      <h1>GymFlow</h1>
+      <p>Manage your fitness journey</p>
+    </div>
+
+    <form [formGroup]="form">
+
+      <ion-item>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          formControlName="email"
+          type="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          formControlName="password"
+          type="password">
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger" *ngIf="error">
+        <p>{{ error }}</p>
+      </ion-text>
+
+      <ion-button
+        expand="block"
+        class="login-btn"
+        (click)="login()">
+
+        {{ loading ? 'Please wait...' : 'Login' }}
+
+      </ion-button>
+
+    </form>
+
+    <div class="bottom-text">
+      Don't have an account?
+      <span routerLink="/register">Register</span>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,86 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Trainer"
+    subtitle="Manage your gym trainers">
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onAddTrainer()">
+
+      <mat-icon>
+        add
+      </mat-icon>
+
+      Add Trainer
+
+    </button>
+
+  </gf-page-header>
+
+  <gf-search-toolbar>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Search
+      </mat-label>
+
+      <input
+        matInput
+        [value]="search()"
+        (input)="search.set(
+          $any($event.target).value
+        )">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Status
+      </mat-label>
+
+      <mat-select
+        [value]="statusFilter()"
+        (valueChange)="
+          statusFilter.set($event)
+        ">
+
+        <mat-option value="">
+          All
+        </mat-option>
+
+        <mat-option value="active">
+          Active
+        </mat-option>
+
+        <mat-option value="inactive">
+          Inactive
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </gf-search-toolbar>
+
+
+  <gf-data-table
+    [columns]="columns"
+    [rows]="filteredTrainers()"
+    [actions]="actions"
+    (tableEvent)="onTableEvent($event)"
+    [selectable]="true"
+    [pageSize]="10"
+    [total]="filteredTrainers().length">
+     [selectable]="true"
+
+    [pageSize]="10"
+
+    [total]="filteredMembers().length">
+
+  </gf-data-table>
+
+</gf-page-layout>

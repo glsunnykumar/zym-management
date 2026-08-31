@@ -1,0 +1,59 @@
+<gf-app-card>
+
+    <div class="stat-card">
+
+        <div class="stat-card__header">
+
+            <div>
+
+                <p class="title">
+
+                    {{ title() }}
+
+                </p>
+
+                <h2>
+
+                    {{ value() }}
+
+                </h2>
+
+            </div>
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    {{ icon() }}
+
+                </mat-icon>
+
+            </div>
+
+        </div>
+
+        @if (description()) {
+
+            <p class="description">
+
+                {{ description() }}
+
+            </p>
+
+        }
+
+        @if (change()) {
+
+            <span
+                class="change"
+                [class]="changeClass()">
+
+                {{ change() }}
+
+            </span>
+
+        }
+
+    </div>
+
+</gf-app-card>

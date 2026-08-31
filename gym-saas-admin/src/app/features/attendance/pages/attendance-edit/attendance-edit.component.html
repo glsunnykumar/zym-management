@@ -1,0 +1,26 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Edit Attendance"
+    subtitle="Update attendance record">
+  </gf-page-header>
+
+  @if (attendance(); as attendance) {
+
+    <gf-attendance-form
+
+      [attendance]="attendance"
+
+      (save)="
+        updateAttendance($event)
+      "
+
+      (cancel)="
+        onCancel()
+      ">
+
+    </gf-attendance-form>
+
+  }
+
+</gf-page-layout>

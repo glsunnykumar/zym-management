@@ -1,0 +1,111 @@
+<gf-page-layout>
+
+    <gf-page-header title="Dashboard" subtitle="Welcome back! Here is your gym overview.">
+
+        <button mat-flat-button>
+
+            Add Member
+
+        </button>
+
+    </gf-page-header>
+
+    <gf-dashboard-section title="Overview" subtitle="Today's key metrics">
+
+        <gf-dashboard-grid>
+
+            <gf-dashboard-item [span]="3">
+
+                <gf-stat-card title="Members" [value]="stats().totalMembers" icon="groups" change="+12%"
+                    changeType="positive" description="Compared to last month">
+                </gf-stat-card>
+
+            </gf-dashboard-item>
+
+            <gf-dashboard-item [span]="3">
+
+                <gf-stat-card title="Revenue" [value]="'₹' + stats().monthlyRevenue" icon="payments" change="+8%"
+                    changeType="positive" description="Monthly revenue">
+                </gf-stat-card>
+
+            </gf-dashboard-item>
+
+            <gf-dashboard-item [span]="3">
+
+                <gf-stat-card title="Attendance" [value]="stats().todayAttendance" icon="fact_check" change="-2%"
+                    changeType="negative" description="Today's attendance">
+                </gf-stat-card>
+
+            </gf-dashboard-item>
+
+            <gf-dashboard-item [span]="3">
+
+                <gf-stat-card title="Plans" [value]="stats().totalPlans" icon="workspace_premium"
+                    description="Active membership plans">
+                </gf-stat-card>
+
+            </gf-dashboard-item>
+
+            <gf-dashboard-item [span]="8">
+
+                <gf-app-card title="Revenue Overview" subtitle="Last 30 Days">
+
+                    <div style="
+                        height:300px;
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                        color:var(--gf-text-secondary);">
+
+                        Revenue Chart Placeholder
+
+                    </div>
+
+                </gf-app-card>
+
+            </gf-dashboard-item>
+
+            <gf-dashboard-item [span]="4">
+
+                <gf-app-card title="Recent Members">
+
+                    <p>
+                        Active Members:
+                        {{ stats().activeMembers }}
+                    </p>
+
+                </gf-app-card>
+
+
+
+
+            </gf-dashboard-item>
+
+
+            <gf-dashboard-item [span]="3">
+
+                <gf-stat-card title="Pending Payments" [value]="stats().pendingPayments" icon="warning">
+
+                </gf-stat-card>
+
+            </gf-dashboard-item>
+
+            <gf-dashboard-item [span]="12">
+
+                <gf-app-card title="Attendance Summary">
+
+                    <div class="gf-placeholder">
+
+                        Attendance Table Placeholder
+
+                    </div>
+
+                </gf-app-card>
+
+            </gf-dashboard-item>
+
+        </gf-dashboard-grid>
+
+    </gf-dashboard-section>
+
+</gf-page-layout>

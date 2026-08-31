@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+
+.details-card {
+
+  background:
+    var(--gf-surface);
+
+  border:
+    1px solid
+    var(--gf-border);
+
+  border-radius:
+    var(--gf-radius-lg);
+
+  padding:
+    var(--gf-space-6);
+
+  box-shadow:
+    var(--gf-shadow-sm);
+
+}
+
+.detail-row {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  padding:
+    var(--gf-space-4) 0;
+
+  border-bottom:
+    1px solid
+    var(--gf-border);
+
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+
+  font-weight: 600;
+
+  color:
+    var(--gf-text-secondary);
+
+}
+
+.value {
+
+  color:
+    var(--gf-text-primary);
+
+}

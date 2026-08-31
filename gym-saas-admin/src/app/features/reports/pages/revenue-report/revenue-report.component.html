@@ -1,0 +1,88 @@
+<h1>Hello From Report Page </h1>
+
+<gf-page-layout>
+
+  <gf-page-header
+    title="Revenue Report"
+    subtitle="Revenue analytics and payments">
+  </gf-page-header>
+
+  <gf-dashboard-grid>
+
+    <gf-dashboard-item [span]="4">
+
+      <gf-stat-card
+        title="Revenue"
+        [value]="'₹' + totalRevenue()"
+        icon="payments">
+      </gf-stat-card>
+
+    </gf-dashboard-item>
+
+    <gf-dashboard-item [span]="4">
+
+      <gf-stat-card
+        title="Payments"
+        [value]="totalPayments()"
+        icon="receipt_long">
+      </gf-stat-card>
+
+    </gf-dashboard-item>
+
+    <gf-dashboard-item [span]="4">
+
+      <gf-stat-card
+        title="Average"
+        [value]="'₹' + averagePayment()"
+        icon="analytics">
+      </gf-stat-card>
+
+    </gf-dashboard-item>
+
+  </gf-dashboard-grid>
+
+  <gf-search-toolbar>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Payment Method
+      </mat-label>
+
+      <mat-select
+        [value]="methodFilter()"
+        (valueChange)="
+          methodFilter.set($event)
+        ">
+
+        <mat-option value="">
+          All
+        </mat-option>
+
+        <mat-option value="cash">
+          Cash
+        </mat-option>
+
+        <mat-option value="upi">
+          UPI
+        </mat-option>
+
+        <mat-option value="card">
+          Card
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </gf-search-toolbar>
+
+    <gf-data-table
+
+    [rows]="filteredRows()"
+
+    [columns]="columns">
+
+  </gf-data-table>
+
+</gf-page-layout>

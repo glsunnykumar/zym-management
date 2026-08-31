@@ -1,0 +1,13 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Add Payment"
+    subtitle="Record member payment">
+  </gf-page-header>
+
+  <gf-payment-form
+    (save)="createPayment($event)"
+    (cancel)="onCancel()">
+  </gf-payment-form>
+
+</gf-page-layout>

@@ -1,0 +1,137 @@
+<gf-page-layout>
+
+  @if (payment(); as payment) {
+
+    <gf-page-header
+
+      [title]="payment.memberName"
+
+      subtitle="Payment Details">
+
+      <button
+        mat-stroked-button
+        color="warn"
+        (click)="deletePayment()">
+
+        Delete Payment
+
+      </button>
+
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="editPayment()">
+
+        Edit Payment
+
+      </button>
+
+    </gf-page-header>
+
+    <div class="details-card">
+
+      <div class="detail-row">
+
+        <span class="label">
+          Member
+        </span>
+
+        <span class="value">
+         {{ member()?.name ?? 'Unknown Member' }}
+        </span>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span class="label">
+          Plan
+        </span>
+
+        <span class="value">
+         {{ plan()?.name ?? 'No Plan' }}
+        </span>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span class="label">
+          Amount
+        </span>
+
+        <span class="value">
+          ₹{{ payment.amount }}
+        </span>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span class="label">
+          Payment Date
+        </span>
+
+        <span class="value">
+          {{ payment.paymentDate }}
+        </span>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span class="label">
+          Next Due Date
+        </span>
+
+        <span class="value">
+          {{ payment.nextDueDate }}
+        </span>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span class="label">
+          Method
+        </span>
+
+        <span class="value">
+          {{ payment.paymentMethod }}
+        </span>
+
+      </div>
+
+      <div class="detail-row">
+
+        <span class="label">
+          Status
+        </span>
+
+        <span class="value">
+          {{ payment.status }}
+        </span>
+
+      </div>
+
+      @if (payment.notes) {
+
+        <div class="detail-row">
+
+          <span class="label">
+            Notes
+          </span>
+
+          <span class="value">
+            {{ payment.notes }}
+          </span>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</gf-page-layout>

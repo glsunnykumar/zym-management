@@ -1,0 +1,58 @@
+<div class="register-container">
+
+  <div class="left-section">
+    <div class="branding">
+      <h1>GymFlow</h1>
+      <p>Manage your gym smarter, faster, better.</p>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <mat-card class="register-card">
+
+      <h2>Create Account</h2>
+
+      <form [formGroup]="registerForm" (ngSubmit)="register()" class="form">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Gym Name</mat-label>
+          <input matInput formControlName="gymName">
+          <mat-error *ngIf="f['gymName'].touched && f['gymName'].invalid">
+            Gym name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="f['email'].touched && f['email'].invalid">
+            Enter valid email
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="f['password'].touched && f['password'].invalid">
+            Min 6 characters required
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="submit-btn"
+          [disabled]="loading || registerForm.invalid">
+
+          {{ loading ? 'Creating...' : 'Create Account' }}
+
+        </button>
+
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      </form>
+
+    </mat-card>
+  </div>
+
+</div>

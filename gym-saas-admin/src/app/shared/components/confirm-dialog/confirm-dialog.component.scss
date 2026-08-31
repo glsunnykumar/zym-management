@@ -1,0 +1,53 @@
+.confirm-dialog {
+
+  min-width: 340px;
+
+  padding:
+    var(--gf-space-5);
+}
+
+.dialog-title {
+
+  margin: 0 0
+    var(--gf-space-3);
+
+  font-size:
+    var(--gf-font-lg);
+
+  font-weight: 600;
+
+  color:
+    var(--gf-text-primary);
+}
+
+.dialog-message {
+
+  margin: 0;
+
+  color:
+    var(--gf-text-secondary);
+
+  line-height: 1.6;
+}
+
+.dialog-actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap:
+    var(--gf-space-2);
+
+  margin-top:
+    var(--gf-space-5);
+}
+
+@media (max-width: 576px) {
+
+  .confirm-dialog {
+
+    min-width: auto;
+  }
+
+}

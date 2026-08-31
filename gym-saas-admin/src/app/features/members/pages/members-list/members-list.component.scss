@@ -1,0 +1,97 @@
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+gf-page-layout {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   SEARCH TOOLBAR
+   ========================================================= */
+
+gf-search-toolbar {
+  display: block;
+  width: 100%;
+
+  margin-bottom: var(--gf-space-5);
+}
+
+
+/* =========================================================
+   DATA TABLE
+   ========================================================= */
+
+gf-data-table {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+  gf-search-toolbar {
+    margin-bottom: var(--gf-space-4);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  :host {
+    width: 100%;
+  }
+
+  gf-search-toolbar {
+    margin-bottom: var(--gf-space-4);
+  }
+
+  /*
+   * Stack the page header content.
+   */
+  ::ng-deep gf-page-header .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gf-space-3);
+  }
+
+  /*
+   * Make Add Member button full width.
+   */
+  ::ng-deep gf-page-header .page-header button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+  gf-search-toolbar {
+    margin-bottom: var(--gf-space-3);
+  }
+
+}

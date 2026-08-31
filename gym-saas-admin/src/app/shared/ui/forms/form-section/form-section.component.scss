@@ -1,0 +1,41 @@
+.gf-form-section {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--gf-space-5);
+
+  margin-bottom:
+    var(--gf-space-7);
+}
+
+.gf-form-section__header h2 {
+
+  margin: 0;
+
+  color:
+    var(--gf-text-primary);
+
+  font-size:
+    var(--gf-font-xl);
+
+  font-weight:
+    var(--gf-font-semibold);
+}
+
+.gf-form-section__header p {
+
+  margin-top:
+    var(--gf-space-1);
+
+  color:
+    var(--gf-text-secondary);
+}
+
+.gf-form-section__content {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--gf-space-4);
+}

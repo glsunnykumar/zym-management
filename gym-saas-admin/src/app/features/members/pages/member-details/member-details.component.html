@@ -1,0 +1,65 @@
+<gf-page-layout>
+
+    <gf-page-header [title]="member()?.name || 'Member Details'" subtitle="View member information">
+
+        <button mat-stroked-button color="warn" (click)="deleteMember()">
+
+            Delete Member
+
+        </button>
+
+        <button mat-flat-button color="primary" (click)="editMember()">
+
+            Edit Member
+
+        </button>
+
+    </gf-page-header>
+
+    @if (member(); as member) {
+
+    <div class="member-grid">
+
+        <gf-app-card title="Basic Information">
+
+            <div class="info-row">
+                <span>Name</span>
+                <strong>{{ member.name }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Phone</span>
+                <strong>{{ member.phone }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Email</span>
+                <strong>{{ member.email }}</strong>
+            </div>
+
+        </gf-app-card>
+
+        <gf-app-card title="Membership">
+
+            <div class="info-row">
+                <span>Plan</span>
+                <strong>{{ member.planName }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Status</span>
+                <strong>{{ member.status }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Join Date</span>
+                <strong>{{ member.joiningDate }}</strong>
+            </div>
+
+        </gf-app-card>
+
+    </div>
+
+    }
+
+</gf-page-layout>

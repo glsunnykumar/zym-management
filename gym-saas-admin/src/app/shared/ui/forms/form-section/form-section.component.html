@@ -1,0 +1,25 @@
+<section class="gf-form-section">
+
+  <div class="gf-form-section__header">
+
+    <h2>
+      {{ title() }}
+    </h2>
+
+    @if (subtitle()) {
+
+      <p>
+        {{ subtitle() }}
+      </p>
+
+    }
+
+  </div>
+
+  <div class="gf-form-section__content">
+
+    <ng-content />
+
+  </div>
+
+</section>

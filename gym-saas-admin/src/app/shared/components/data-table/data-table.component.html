@@ -1,0 +1,355 @@
+<div class="data-table-container">
+
+  <!-- ===============================================
+       TABLE
+       =============================================== -->
+
+  <div
+    class="data-table-wrapper"
+    [class.is-loading]="loading()">
+
+    <table
+      class="data-table"
+      [attr.aria-label]="ariaLabel()">
+
+      <thead
+        [class.sticky]="stickyHeader()">
+
+        <tr>
+
+          <!-- SELECTION -->
+
+          @if (selectable()) {
+
+            <th class="selection-column">
+
+              <mat-checkbox
+                [checked]="allRowsSelected()"
+                [indeterminate]="partiallySelected()"
+                aria-label="Select all rows"
+                (click)="$event.stopPropagation()"
+                (change)="toggleAll($event)">
+              </mat-checkbox>
+
+            </th>
+
+          }
+
+
+          <!-- COLUMNS -->
+
+          @for (
+            column of columns();
+            track column.key
+          ) {
+
+            <th
+              [style.width]="column.width ?? null"
+
+              [class.align-center]="
+                column.align === 'center'
+              "
+
+              [class.align-end]="
+                column.align === 'end'
+              "
+
+              [class.column-secondary]="
+                column.priority === 'secondary'
+              "
+
+              [class.column-optional]="
+                column.priority === 'optional'
+              "
+
+              [class.sortable]="column.sortable"
+
+              [class.sorted]="
+                activeSort() === column.key
+              "
+
+              (click)="onSort(column)">
+
+              <div class="column-header">
+
+                <span>
+                  {{ column.label }}
+                </span>
+
+                @if (column.sortable) {
+
+                  <mat-icon
+                    class="sort-icon"
+                    aria-hidden="true">
+
+                    {{ getSortIcon(column) }}
+
+                  </mat-icon>
+
+                }
+
+              </div>
+
+            </th>
+
+          }
+
+
+          <!-- ACTIONS -->
+
+          @if (hasActions()) {
+
+            <th class="actions-column align-end">
+              Actions
+            </th>
+
+          }
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        @for (
+          row of rows();
+          track getRowId(row)
+        ) {
+
+          <tr
+            [class.clickable]="rowClickable()"
+            [class.selected]="isSelected(row)"
+            (click)="onRowClick(row)">
+
+
+            <!-- SELECTION -->
+
+            @if (selectable()) {
+
+              <td class="selection-column">
+
+                <mat-checkbox
+                  [checked]="isSelected(row)"
+                  aria-label="Select row"
+                  (click)="$event.stopPropagation()"
+                  (change)="toggleRow($event, row)">
+                </mat-checkbox>
+
+              </td>
+
+            }
+
+
+            <!-- CELLS -->
+
+            @for (
+              column of columns();
+              track column.key
+            ) {
+
+              <td
+                [attr.data-label]="column.label"
+
+                [class.align-center]="
+                  column.align === 'center'
+                "
+
+                [class.align-end]="
+                  column.align === 'end'
+                "
+
+                [class.column-secondary]="
+                  column.priority === 'secondary'
+                "
+
+                [class.column-optional]="
+                  column.priority === 'optional'
+                ">
+
+
+                @switch (column.type) {
+
+                  @case ('status') {
+
+                    
+
+                    <gf-status-chip
+                      [status]="
+                        getStatus(
+                          row,
+                          column
+                        )
+                      " />
+
+                  }
+
+
+                  @default {
+
+                    {{ getFormattedValue(
+                      row,
+                      column
+                    ) }}
+
+                  }
+
+                }
+
+              </td>
+
+            }
+
+
+            <!-- ACTIONS -->
+
+            @if (hasActions()) {
+
+              <td
+                class="actions-cell align-end"
+                data-label="Actions">
+
+                <div class="row-actions">
+
+                  @for (
+                    action of actions();
+                    track action.id
+                  ) {
+
+                    @if (
+                      isActionVisible(
+                        action,
+                        row
+                      )
+                    ) {
+
+                      <button
+                        mat-icon-button
+                        type="button"
+
+                        [color]="action.color"
+
+                        [disabled]="
+                          isActionDisabled(
+                            action,
+                            row
+                          )
+                        "
+
+                        [matTooltip]="
+                          action.label
+                        "
+
+                        [attr.aria-label]="
+                          action.label
+                        "
+
+                        (click)="
+                          onAction(
+                            $event,
+                            action,
+                            row
+                          )
+                        ">
+
+                        <mat-icon>
+                          {{ action.icon }}
+                        </mat-icon>
+
+                      </button>
+
+                    }
+
+                  }
+
+                </div>
+
+              </td>
+
+            }
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+
+    <!-- ===============================================
+         LOADING OVERLAY
+         =============================================== -->
+
+    @if (loading()) {
+
+      <div
+        class="loading-overlay"
+        role="status"
+        aria-live="polite">
+
+        <div class="loading-content">
+
+          <span class="spinner"></span>
+
+          <span>
+            Loading...
+          </span>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- ===============================================
+       EMPTY STATE
+       =============================================== -->
+
+  @if (
+    !loading() &&
+    !hasRows()
+  ) {
+
+    <div class="empty-container">
+
+     
+
+    </div>
+
+  }
+
+
+  <!-- ===============================================
+       PAGINATOR
+       =============================================== -->
+
+  @if (
+    !loading() &&
+    hasRows() &&
+    showPaginator() &&
+    effectiveTotal() > 0
+  ) {
+
+    <div class="table-paginator">
+
+      <mat-paginator
+        [length]="effectiveTotal()"
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="pageSizeOptions()"
+        [showFirstLastButtons]="true"
+
+        aria-label="Select table page"
+
+        (page)="onPageChange($event)">
+      </mat-paginator>
+
+    </div>
+
+  }
+
+</div>

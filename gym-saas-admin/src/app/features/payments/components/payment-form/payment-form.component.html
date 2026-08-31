@@ -1,0 +1,209 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="payment-form">
+
+  <!-- MEMBER -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Member
+    </mat-label>
+
+    <mat-select
+      formControlName="memberId">
+
+      <mat-option
+        *ngFor="let member of members"
+        [value]="member.id">
+
+        {{ member.name }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- PLAN -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Plan
+    </mat-label>
+
+    <mat-select
+      formControlName="planId">
+
+      <mat-option
+        *ngFor="let plan of plans"
+        [value]="plan.id">
+
+        {{ plan.name }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- AMOUNT -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Amount
+    </mat-label>
+
+    <input
+      matInput
+      type="number"
+      formControlName="amount">
+
+  </mat-form-field>
+
+  <!-- PAYMENT DATE -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Payment Date
+    </mat-label>
+
+    <input
+      matInput
+      [matDatepicker]="paymentPicker"
+      formControlName="paymentDate">
+
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="paymentPicker">
+    </mat-datepicker-toggle>
+
+    <mat-datepicker
+      #paymentPicker>
+    </mat-datepicker>
+
+  </mat-form-field>
+
+  <!-- NEXT DUE DATE -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Next Due Date
+    </mat-label>
+
+    <input
+      matInput
+      [matDatepicker]="duePicker"
+      formControlName="nextDueDate">
+
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="duePicker">
+    </mat-datepicker-toggle>
+
+    <mat-datepicker
+      #duePicker>
+    </mat-datepicker>
+
+  </mat-form-field>
+
+  <!-- METHOD -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Payment Method
+    </mat-label>
+
+    <mat-select
+      formControlName="paymentMethod">
+
+      <mat-option value="cash">
+        Cash
+      </mat-option>
+
+      <mat-option value="upi">
+        UPI
+      </mat-option>
+
+      <mat-option value="card">
+        Card
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- STATUS -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Status
+    </mat-label>
+
+    <mat-select
+      formControlName="status">
+
+      <mat-option value="paid">
+        Paid
+      </mat-option>
+
+      <mat-option value="pending">
+        Pending
+      </mat-option>
+
+      <mat-option value="overdue">
+        Overdue
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- NOTES -->
+
+  <mat-form-field
+    appearance="outline"
+    class="full-width">
+
+    <mat-label>
+      Notes
+    </mat-label>
+
+    <textarea
+      matInput
+      rows="4"
+      formControlName="notes">
+    </textarea>
+
+  </mat-form-field>
+
+  <div class="form-actions">
+
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="cancel.emit()">
+
+      Cancel
+
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit">
+
+      Save Payment
+
+    </button>
+
+  </div>
+
+</form>

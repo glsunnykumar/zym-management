@@ -1,0 +1,52 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Membership Report"
+    subtitle="Track membership expiry">
+  </gf-page-header>
+
+  <gf-dashboard-grid>
+
+    <gf-dashboard-item [span]="4">
+
+      <gf-stat-card
+        title="Active"
+        [value]="activeMembers()"
+        icon="groups">
+      </gf-stat-card>
+
+    </gf-dashboard-item>
+
+    <gf-dashboard-item [span]="4">
+
+      <gf-stat-card
+        title="Expiring Soon"
+        [value]="expiringSoon()"
+        icon="warning">
+      </gf-stat-card>
+
+    </gf-dashboard-item>
+
+    <gf-dashboard-item [span]="4">
+
+      <gf-stat-card
+        title="Expired"
+        [value]="expiredMembers()"
+        icon="block">
+      </gf-stat-card>
+
+    </gf-dashboard-item>
+
+  </gf-dashboard-grid>
+
+   <gf-data-table
+
+    [rows]="reportRows()"
+
+    [columns]="columns">
+
+  </gf-data-table>
+
+ 
+
+</gf-page-layout>

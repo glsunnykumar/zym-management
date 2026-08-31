@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+gf-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  border-right: 1px solid #e5e7eb;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f5f7fa;
+}

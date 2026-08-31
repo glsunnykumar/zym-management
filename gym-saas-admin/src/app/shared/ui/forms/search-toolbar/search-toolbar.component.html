@@ -1,0 +1,108 @@
+<div class="toolbar">
+
+  @if(config.showSearch){
+
+  <mat-form-field appearance="outline" class="search">
+
+    <mat-icon matPrefix>
+
+      search
+
+    </mat-icon>
+
+    <input
+
+      matInput
+
+      [(ngModel)]="search"
+
+      (keyup)="onSearch()"
+
+      [placeholder]="config.placeholder">
+
+  </mat-form-field>
+
+  }
+
+  @for(filter of config.filters;track filter.key){
+
+  <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        {{filter.label}}
+
+      </mat-label>
+
+      <mat-select>
+
+        @for(option of filter.options;track option.value){
+
+        <mat-option [value]="option.value">
+
+          {{option.label}}
+
+        </mat-option>
+
+        }
+
+      </mat-select>
+
+  </mat-form-field>
+
+  }
+
+  <span class="spacer"></span>
+
+  @if(config.showRefresh){
+
+  <button
+  mat-icon-button
+  (click)="onRefresh()">
+
+      <mat-icon>
+
+        refresh
+
+      </mat-icon>
+
+  </button>
+
+  }
+
+  @if(config.showExport){
+
+  <button
+  mat-icon-button
+  (click)="onExport()">
+
+      <mat-icon>
+
+        download
+
+      </mat-icon>
+
+  </button>
+
+  }
+
+  @if(config.showAdd){
+
+  <button
+  mat-flat-button
+  color="primary"
+  (click)="onAdd()">
+
+      <mat-icon>
+
+        {{config.addButtonIcon}}
+
+      </mat-icon>
+
+      {{config.addButtonText}}
+
+  </button>
+
+  }
+
+</div>

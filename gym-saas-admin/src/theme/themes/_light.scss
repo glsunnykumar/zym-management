@@ -1,0 +1,75 @@
+/**
+ * ============================================================
+ * GymFlow Light Theme
+ * ============================================================
+ */
+
+html.theme-light {
+
+  /* ==========================================================
+     Brand
+     ========================================================== */
+
+  --gf-primary: #2563eb;
+  --gf-primary-hover: #1d4ed8;
+  --gf-primary-active: #1e40af;
+  --gf-primary-container: #dbeafe;
+
+  /* ==========================================================
+     Semantic
+     ========================================================== */
+
+  --gf-success: #16a34a;
+  --gf-warning: #f59e0b;
+  --gf-danger: #dc2626;
+  --gf-info: #0284c7;
+
+  /* ==========================================================
+     Background
+     ========================================================== */
+
+  --gf-background: #f5f7fa;
+  --gf-surface: #ffffff;
+  --gf-surface-hover: #f8fafc;
+
+  /* ==========================================================
+     Text
+     ========================================================== */
+
+  --gf-text-primary: #111827;
+  --gf-text-secondary: #6b7280;
+  --gf-text-disabled: #9ca3af;
+  --gf-text-inverse: #ffffff;
+
+  /* ==========================================================
+     Border
+     ========================================================== */
+
+  --gf-border: #e5e7eb;
+  --gf-border-light: #f3f4f6;
+  --gf-divider: #e2e8f0;
+
+
+  --gf-success: #2e7d32;
+  --gf-success-container: #e8f5e9;
+
+  --gf-warning: #ed6c02;
+  --gf-warning-container: #fff3e0;
+
+  --gf-error: #d32f2f;
+  --gf-error-container: #ffebee;
+
+  --gf-info: #0288d1;
+  --gf-info-container: #e1f5fe;
+
+  -gf-neutral: #6b7280;
+  --gf-neutral-container: #f3f4f6;
+
+  --gf-hover: rgba(0, 0, 0, 0.04);
+  --gf-selected: rgba(25, 118, 210, 0.08);
+  --gf-focus: rgba(25, 118, 210, 0.20);
+
+  --gf-overlay: rgba(0, 0, 0, 0.50);
+  --gf-scrim: rgba(0, 0, 0, 0.32);
+
+}

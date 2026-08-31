@@ -1,0 +1,151 @@
+button{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:10px;
+
+border-radius:12px;
+
+font-weight:600;
+
+transition:.25s;
+
+}
+
+/* Sizes */
+
+.sm{
+
+height:36px;
+
+padding:0 16px;
+
+font-size:13px;
+
+}
+
+.md{
+
+height:44px;
+
+padding:0 22px;
+
+font-size:14px;
+
+}
+
+.lg{
+
+height:52px;
+
+padding:0 28px;
+
+font-size:15px;
+
+}
+
+/* Width */
+
+.full-width{
+
+width:100%;
+
+}
+
+/* Primary */
+
+.primary{
+
+background:var(--primary) !important;
+
+color:white !important;
+
+}
+
+.primary:hover{
+
+background:var(--primary-dark) !important;
+
+}
+
+/* Secondary */
+
+.secondary{
+
+background:var(--surface) !important;
+
+color:var(--primary) !important;
+
+border:1px solid var(--border);
+
+}
+
+/* Success */
+
+.success{
+
+background:var(--success) !important;
+
+color:white;
+
+}
+
+/* Danger */
+
+.danger{
+
+background:var(--danger) !important;
+
+color:white;
+
+}
+
+/* Warning */
+
+.warning{
+
+background:var(--warning) !important;
+
+color:white;
+
+}
+
+/* Text */
+
+.text{
+
+background:transparent !important;
+
+color:var(--primary);
+
+box-shadow:none;
+
+}
+
+mat-spinner{
+
+display:inline-block;
+
+}
+
+mat-icon{
+
+font-size:20px;
+
+height:20px;
+
+width:20px;
+
+}
+
+button:disabled{
+
+opacity:.7;
+
+cursor:not-allowed;
+
+}

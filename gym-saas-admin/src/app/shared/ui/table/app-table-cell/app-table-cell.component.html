@@ -1,0 +1,64 @@
+@switch(column.renderer){
+
+    @case('status'){
+
+
+        <app-status-chip
+            [status]="value">
+        </app-status-chip>
+
+    }
+
+    @case('currency'){
+
+        {{formatCurrency()}}
+
+    }
+
+    @case('date'){
+
+        {{formatDate()}}
+
+    }
+
+    @case('boolean'){
+
+        @if(value){
+
+            ✅
+
+        } @else {
+
+            ❌
+
+        }
+
+    }
+
+    @case('image'){
+
+        <img
+            [src]="value"
+            alt="image">
+
+    }
+
+    @case('avatar'){
+
+        <div class="avatar">
+
+            <img
+                [src]="value"
+                alt="avatar">
+
+        </div>
+
+    }
+
+    @default{
+
+        {{value}}
+
+    }
+
+}

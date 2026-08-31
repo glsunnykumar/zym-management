@@ -1,0 +1,11 @@
+export enum GymStatus {
+
+  ACTIVE='ACTIVE',
+
+  INACTIVE='INACTIVE',
+
+  UNDER_REVIEW='UNDER_REVIEW',
+
+  BLOCKED='BLOCKED'
+
+}

@@ -1,0 +1,23 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Edit Member"
+    subtitle="Update member information">
+  </gf-page-header>
+
+  @if (loading()) {
+
+    <p>Loading member...</p>
+
+  } @else {
+
+    <gf-member-form
+      [member]="member()"
+      submitLabel="Update Member"
+      (save)="onSave($event)"
+      (cancel)="onCancel()">
+    </gf-member-form>
+
+  }
+
+</gf-page-layout>

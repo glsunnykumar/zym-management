@@ -1,0 +1,103 @@
+<gf-page-layout>
+
+  <gf-page-header title="Member" subtitle="Manage your gym members">
+
+    <button mat-flat-button color="primary" (click)="onAddMember()">
+
+      <mat-icon>
+        add
+      </mat-icon>
+
+      Add Member
+
+    </button>
+
+  </gf-page-header>
+
+
+  <gf-search-toolbar>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Search
+      </mat-label>
+
+      <input matInput [value]="search()" (input)="search.set(
+          $any($event.target).value
+        )">
+
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Status
+      </mat-label>
+
+      <mat-select [value]="statusFilter()" (valueChange)="
+          statusFilter.set($event)
+        ">
+
+        <mat-option value="">
+          All
+        </mat-option>
+
+        <mat-option value="active">
+          Active
+        </mat-option>
+
+        <mat-option value="expired">
+          Expired
+        </mat-option>
+
+        <mat-option value="pending">
+          Pending
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Plan
+      </mat-label>
+
+      <mat-select [value]="planFilter()" (valueChange)="
+          planFilter.set($event)
+        ">
+
+        <mat-option value="">
+          All Plans
+        </mat-option>
+
+
+        <mat-option *ngFor="let plan of plans()" [value]="plan.id">
+
+          {{ plan.name }}
+
+        </mat-option>
+
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </gf-search-toolbar>
+
+
+  <gf-data-table [columns]="columns" [rows]="filteredMembers()" [actions]="actions" (tableEvent)="onTableEvent($event)">
+
+    [selectable]="true"
+
+    [pageSize]="10"
+
+    [total]="filteredMembers().length">
+
+  </gf-data-table>
+
+</gf-page-layout>

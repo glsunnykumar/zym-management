@@ -1,0 +1,62 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Plans"
+    subtitle="Manage membership plans">
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="addPlan()">
+ 
+      <mat-icon>
+        add
+      </mat-icon>
+
+      Add Plan
+
+    </button>
+
+  </gf-page-header>
+
+  <gf-search-toolbar>
+
+    <mat-form-field
+      appearance="outline">
+
+      <mat-label>
+        Search Plan
+      </mat-label>
+
+      <input
+        matInput
+        [value]="search()"
+        (input)="
+          search.set(
+            $any($event.target).value
+          )
+        ">
+
+    </mat-form-field>
+
+  </gf-search-toolbar>
+
+  <gf-data-table
+
+    [columns]="columns"
+
+    [rows]="filteredPlans()"
+
+    [actions]="actions"
+
+    [pageSize]="10"
+
+    [total]="filteredPlans().length"
+
+    (tableEvent)="
+      onTableEvent($event)
+    ">
+
+  </gf-data-table>
+
+</gf-page-layout>

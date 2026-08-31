@@ -1,0 +1,21 @@
+<div
+    class="status-chip"
+    [ngClass]="config.color">
+
+    @if(config.icon){
+
+        <mat-icon>
+
+            {{config.icon}}
+
+        </mat-icon>
+
+    }
+
+    <span>
+
+        {{config.label}}
+
+    </span>
+
+</div>

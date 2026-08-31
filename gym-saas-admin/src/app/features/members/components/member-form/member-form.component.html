@@ -1,0 +1,167 @@
+<gf-form-card>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- BASIC -->
+
+    <gf-form-section title="Basic Information" subtitle="Member personal details">
+
+      <gf-form-grid>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Full Name
+          </mat-label>
+
+          <input matInput formControlName="name">
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Phone
+          </mat-label>
+
+          <input matInput formControlName="phone">
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Email
+          </mat-label>
+
+          <input matInput formControlName="email">
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Gender
+          </mat-label>
+
+          <mat-select formControlName="gender">
+
+            <mat-option value="male">
+              Male
+            </mat-option>
+
+            <mat-option value="female">
+              Female
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+      </gf-form-grid>
+
+    </gf-form-section>
+
+    <!-- MEMBERSHIP -->
+
+    <gf-form-section title="Membership Information">
+
+      <gf-form-grid>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Plan
+          </mat-label>
+
+          <mat-select formControlName="planId">
+
+            <mat-option *ngFor="let plan of plans()" [value]="plan.id">
+
+              {{ plan.name }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Joining Date
+          </mat-label>
+
+          <input type="date" matInput formControlName="joiningDate">
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Expiry Date
+          </mat-label>
+
+          <input type="date" matInput formControlName="expiryDate">
+
+        </mat-form-field>
+
+      </gf-form-grid>
+
+    </gf-form-section>
+
+    <!-- EXTRA -->
+
+    <gf-form-section title="Additional Information">
+
+      <gf-form-grid>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+            Emergency Contact
+          </mat-label>
+
+          <input matInput formControlName="emergencyContact">
+
+        </mat-form-field>
+
+      </gf-form-grid>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Notes
+        </mat-label>
+
+        <textarea rows="4" matInput formControlName="notes">
+        </textarea>
+
+      </mat-form-field>
+
+    </gf-form-section>
+
+    <gf-form-actions>
+
+      <button type="button" mat-stroked-button (click)="cancel.emit()">
+
+        Cancel
+
+      </button>
+
+      <button type="submit" mat-flat-button color="primary">
+
+        {{ submitLabel() }}
+
+      </button>
+
+    </gf-form-actions>
+
+  </form>
+
+</gf-form-card>

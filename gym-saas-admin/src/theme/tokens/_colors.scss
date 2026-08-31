@@ -1,0 +1,93 @@
+:root {
+
+  /* ==========================================================
+     Brand
+     ========================================================== */
+
+  --gf-primary: #2563eb;
+  --gf-primary-hover: #1d4ed8;
+  --gf-primary-active: #1e40af;
+  --gf-primary-container: #dbeafe;
+
+  /* ==========================================================
+     Semantic
+     ========================================================== */
+
+  --gf-success: #16a34a;
+  --gf-warning: #f59e0b;
+  --gf-danger: #dc2626;
+  --gf-info: #0284c7;
+
+  /* ==========================================================
+     Background
+     ========================================================== */
+
+  --gf-background: #f5f7fa;
+  --gf-surface: #ffffff;
+  --gf-surface-hover: #f8fafc;
+
+  /* ==========================================================
+     Text
+     ========================================================== */
+
+  --gf-text-primary: #1f2937;
+  --gf-text-secondary: #6b7280;
+  --gf-text-disabled: #9ca3af;
+  --gf-text-inverse: #ffffff;
+
+  /* ==========================================================
+     Border
+     ========================================================== */
+
+  --gf-border: #e5e7eb;
+  --gf-border-light: #f1f5f9;
+  --gf-divider: #e2e8f0;
+
+
+  /* Success */
+  --gf-success: #2e7d32;
+  --gf-on-success: #ffffff;
+  --gf-success-container: #e8f5e9;
+  --gf-on-success-container: #1b5e20;
+
+  /* Warning */
+  --gf-warning: #ed6c02;
+  --gf-on-warning: #ffffff;
+  --gf-warning-container: #fff3e0;
+  --gf-on-warning-container: #e65100;
+
+  /* Error */
+  --gf-error: #d32f2f;
+  --gf-on-error: #ffffff;
+  --gf-error-container: #ffebee;
+  --gf-on-error-container: #b71c1c;
+
+  /* Info */
+  --gf-info: #0288d1;
+  --gf-on-info: #ffffff;
+  --gf-info-container: #e1f5fe;
+  --gf-on-info-container: #01579b;
+
+  /* ----------------------------------
+   Neutral
+----------------------------------- */
+
+--gf-neutral: #6b7280;
+--gf-neutral-container: #f3f4f6;
+
+/* ----------------------------------
+   Interactive
+----------------------------------- */
+
+--gf-hover: rgba(0, 0, 0, 0.04);
+--gf-selected: rgba(25, 118, 210, 0.08);
+--gf-focus: rgba(25, 118, 210, 0.20);
+
+/* ----------------------------------
+   Overlay
+----------------------------------- */
+
+--gf-overlay: rgba(0, 0, 0, 0.50);
+--gf-scrim: rgba(0, 0, 0, 0.32);
+
+}

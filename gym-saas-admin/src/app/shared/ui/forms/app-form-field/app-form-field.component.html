@@ -1,0 +1,65 @@
+<mat-form-field
+appearance="outline"
+class="gym-field">
+
+    <mat-label>
+
+        {{config.label}}
+
+    </mat-label>
+
+    @if(config.prefixIcon){
+
+        <mat-icon matPrefix>
+
+            {{config.prefixIcon}}
+
+        </mat-icon>
+
+    }
+
+    <input
+
+        matInput
+
+        [formControl]="control"
+
+        [type]="config.type || 'text'"
+
+        [placeholder]="config.placeholder ?? '' "
+
+        [readonly]="config.readonly"
+
+        [maxlength]="config.maxlength ?? ''">
+
+    @if(config.suffixIcon){
+
+        <mat-icon matSuffix>
+
+            {{config.suffixIcon}}
+
+        </mat-icon>
+
+    }
+    
+    @if(config.hint){
+
+        <mat-hint>
+
+            {{config.hint}}
+
+        </mat-hint>
+
+    }
+
+    @if(control.invalid && control.touched){
+
+        <mat-error>
+
+            {{getError()}}
+
+        </mat-error>
+
+    }
+
+</mat-form-field>

@@ -1,0 +1,33 @@
+<mat-sidenav-container class="app-shell"
+ [hasBackdrop]="layout.hasBackdrop()"
+>
+
+  <h1 style="color:red;font-size:40px">
+AUTH LOGIN PAGE
+</h1>
+
+  <mat-sidenav
+    [mode]="layout.drawerMode()"
+    [opened]="layout.sidebarOpened()"
+   
+    >
+
+    <!-- [hasBackdrop]="layout.hasBackdrop()" -->
+
+    <gf-sidebar />
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <gf-topbar />
+
+    <main class="app-content">
+
+      <router-outlet />
+
+    </main>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

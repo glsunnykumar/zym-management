@@ -1,0 +1,13 @@
+export enum MemberRole {
+
+  MEMBER = 'MEMBER',
+
+  TRAINER = 'TRAINER',
+
+  RECEPTIONIST = 'RECEPTIONIST',
+
+  MANAGER = 'MANAGER',
+
+  ADMIN = 'ADMIN'
+
+}

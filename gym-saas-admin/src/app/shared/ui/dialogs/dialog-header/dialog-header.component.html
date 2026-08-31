@@ -1,0 +1,53 @@
+<div class="dialog-header">
+
+    <div class="left">
+
+        <div class="icon">
+
+            <mat-icon>
+
+                {{config.icon}}
+
+            </mat-icon>
+
+        </div>
+
+        <div>
+
+            <h2>
+
+                {{config.title}}
+
+            </h2>
+
+            @if(config.subtitle){
+
+                <p>
+
+                    {{config.subtitle}}
+
+                </p>
+
+            }
+
+        </div>
+
+    </div>
+
+    @if(config.showClose){
+
+        <button
+            mat-icon-button
+            (click)="close.emit()">
+
+            <mat-icon>
+
+                close
+
+            </mat-icon>
+
+        </button>
+
+    }
+
+</div>

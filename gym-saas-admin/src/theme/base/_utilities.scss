@@ -1,0 +1,13 @@
+.gf-placeholder {
+  min-height: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--gf-text-secondary);
+  font-size: var(--gf-font-sm);
+  border: 2px dashed var(--gf-border);
+  border-radius: var(--gf-radius-lg);
+  background: var(--gf-surface);
+}

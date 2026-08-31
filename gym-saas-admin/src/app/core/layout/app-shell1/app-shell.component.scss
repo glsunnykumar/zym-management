@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.app-shell {
+  height: 100vh;
+  background: var(--gf-background);
+   
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+
+
+mat-sidenav {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+    
+}
+
+
+
+
+.app-content {
+  flex: 1;
+  padding: var(--gf-space-6);
+
+  //background: var(--gf-background);
+
+  overflow-y: auto ;
+
+   min-height: 0; // IMPORTANT
+}

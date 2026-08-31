@@ -1,0 +1,57 @@
+<div class="empty-state">
+
+    @if(config.image){
+
+        <img
+            [src]="config.image"
+            alt="Empty State">
+
+    } @else {
+
+        <div class="icon">
+
+            <mat-icon>
+
+                {{config.icon || 'inventory_2'}}
+
+            </mat-icon>
+
+        </div>
+
+    }
+
+    <h2>
+
+        {{config.title}}
+
+    </h2>
+
+    <p>
+
+        {{config.description}}
+
+    </p>
+
+    @if(config.showButton){
+
+        <button
+
+            mat-flat-button
+
+            color="primary"
+
+            (click)="onAction()">
+
+            <mat-icon>
+
+                add
+
+            </mat-icon>
+
+            {{config.buttonText}}
+
+        </button>
+
+    }
+
+</div>

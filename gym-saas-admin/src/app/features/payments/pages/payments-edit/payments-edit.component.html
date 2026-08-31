@@ -1,0 +1,22 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Edit Payment"
+    subtitle="Update payment details">
+  </gf-page-header>
+
+  @if (payment()) {
+    
+    <gf-payment-form
+
+      [payment]="payment()!"
+
+      (save)="updatePayment($event)"
+
+      (cancel)="onCancel()">
+
+    </gf-payment-form>
+
+  }
+
+</gf-page-layout>

@@ -1,0 +1,40 @@
+.status-chip {
+
+  font-weight: 600;
+
+  &.active,
+  &.success {
+    background: var(--gf-success-container);
+    color: var(--gf-success);
+  }
+
+  &.inactive {
+    background: var(--gf-surface-variant);
+    color: var(--gf-text-secondary);
+  }
+
+  &.pending,
+  &.warning {
+    background: var(--gf-warning-container);
+    color: var(--gf-warning);
+  }
+
+  &.expired,
+  &.cancelled,
+  &.error {
+    background: var(--gf-error-container);
+    color: var(--gf-error);
+  }
+
+  &.info {
+    background: var(--gf-info-container);
+    color: var(--gf-info);
+  }
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    margin-right: var(--gf-space-1);
+  }
+}

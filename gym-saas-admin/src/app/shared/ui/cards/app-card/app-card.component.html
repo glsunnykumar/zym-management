@@ -1,0 +1,91 @@
+<mat-card
+    class="app-card"
+    [class.elevated]="config.elevated">
+
+    @if(config.title){
+
+        <div class="card-header">
+
+            <div class="header-left">
+
+                @if(config.icon){
+
+                    <div class="icon">
+
+                        <mat-icon>
+
+                            {{config.icon}}
+
+                        </mat-icon>
+
+                    </div>
+
+                }
+
+                <div>
+
+                    <h2>
+
+                        {{config.title}}
+
+                    </h2>
+
+                    @if(config.subtitle){
+
+                        <p>
+
+                            {{config.subtitle}}
+
+                        </p>
+
+                    }
+
+                </div>
+
+            </div>
+
+            @if(actionsTemplate){
+
+                <div class="actions">
+
+                    <ng-container
+                        *ngTemplateOutlet="actionsTemplate">
+                    </ng-container>
+
+                </div>
+
+            }
+
+        </div>
+
+        @if(config.showDivider){
+
+            <mat-divider></mat-divider>
+
+        }
+
+    }
+
+    <div
+        class="card-content"
+        [ngClass]="config.padding">
+
+        <ng-content></ng-content>
+
+    </div>
+
+    @if(footerTemplate){
+
+        <mat-divider></mat-divider>
+
+        <div class="card-footer">
+
+            <ng-container
+                *ngTemplateOutlet="footerTemplate">
+            </ng-container>
+
+        </div>
+
+    }
+
+</mat-card>

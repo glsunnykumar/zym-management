@@ -1,0 +1,17 @@
+<mat-chip
+    class="status-chip"
+    [class]="status()">
+
+    @if (showIcon()) {
+
+        <mat-icon>
+
+            {{ icon() }}
+
+        </mat-icon>
+
+    }
+
+    {{ label() }}
+
+</mat-chip>

@@ -1,0 +1,18 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Edit Plan"
+    subtitle="Update plan details">
+  </gf-page-header>
+
+  <gf-app-card>
+
+    <gf-plan-form
+      [plan]="plan()"
+      (save)="updatePlan($event)">
+       (cancel)="onCancel()">
+    </gf-plan-form>
+
+  </gf-app-card>
+
+</gf-page-layout>

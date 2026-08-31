@@ -1,0 +1,13 @@
+export const COLORS = {
+
+  PRIMARY: 'primary',
+
+  SUCCESS: 'success',
+
+  WARNING: 'warning',
+
+  DANGER: 'danger',
+
+  INFO: 'info'
+
+} as const;

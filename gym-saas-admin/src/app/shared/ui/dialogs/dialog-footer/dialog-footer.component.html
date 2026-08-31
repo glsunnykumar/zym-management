@@ -1,0 +1,32 @@
+<div class="dialog-footer">
+
+    <button
+        mat-stroked-button
+        (click)="secondary.emit()">
+
+        <mat-icon>
+
+            {{config.secondaryAction?.icon}}
+
+        </mat-icon>
+
+        {{config.secondaryAction?.text}}
+
+    </button>
+
+    <button
+        mat-flat-button
+        color="primary"
+        (click)="primary.emit()">
+
+        <mat-icon>
+
+            {{config.primaryAction?.icon}}
+
+        </mat-icon>
+
+        {{config.primaryAction?.text}}
+
+    </button>
+
+</div>

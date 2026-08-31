@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-page">
+
+  <div class="login-container">
+
+    <div class="logo-section">
+      <h1>Create Account</h1>
+      <p>Join GymFlow today</p>
+    </div>
+
+    <form [formGroup]="form">
+
+      <ion-item>
+        <ion-input
+          label="Full Name"
+          labelPlacement="floating"
+          formControlName="name">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          formControlName="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password">
+        </ion-input>
+      </ion-item>
+
+      <ion-text color="danger" *ngIf="error">
+        <p>{{ error }}</p>
+      </ion-text>
+
+      <ion-button
+        expand="block"
+        class="login-btn"
+        (click)="register()">
+
+        {{ loading ? 'Creating...' : 'Create Account' }}
+
+      </ion-button>
+
+    </form>
+
+  </div>
+
+</ion-content>

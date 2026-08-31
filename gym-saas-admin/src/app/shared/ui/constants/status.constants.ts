@@ -1,0 +1,17 @@
+export const STATUS = {
+
+  ACTIVE: 'ACTIVE',
+
+  INACTIVE: 'INACTIVE',
+
+  EXPIRED: 'EXPIRED',
+
+  PENDING: 'PENDING',
+
+  PAID: 'PAID',
+
+  FAILED: 'FAILED',
+
+  CANCELLED: 'CANCELLED'
+
+} as const;

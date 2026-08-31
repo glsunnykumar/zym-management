@@ -1,0 +1,39 @@
+<div
+
+class="loading"
+
+[ngClass]="config.variant || 'fullscreen'">
+
+@if(config.backdrop){
+
+<div class="backdrop"></div>
+
+}
+
+<div class="loader">
+
+@if(config.showLogo){
+
+<div class="logo">
+
+🏋️
+
+</div>
+
+}
+
+<mat-spinner
+
+diameter="55">
+
+</mat-spinner>
+
+<h3>
+
+{{config.message || 'Loading...'}}
+
+</h3>
+
+</div>
+
+</div>

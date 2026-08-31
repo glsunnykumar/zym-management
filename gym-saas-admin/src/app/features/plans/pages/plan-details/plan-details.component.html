@@ -1,0 +1,106 @@
+<gf-page-layout>
+
+  <gf-page-header
+    [title]="plan()?.name || 'Plan Details'"
+    subtitle="View membership plan">
+
+     <button
+      mat-stroked-button
+      color="warn"
+      (click)="deletePlan()">
+
+      Delete Plan
+
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="editPlan()">
+
+      Edit Plan
+
+    </button>
+
+  </gf-page-header>
+
+  @if (plan(); as plan) {
+
+    <gf-app-card>
+
+      <div class="details-grid">
+
+        <div class="detail-item">
+
+          <span class="label">
+            Plan Name
+          </span>
+
+          <span class="value">
+            {{ plan.name }}
+          </span>
+
+        </div>
+
+        <div class="detail-item">
+
+          <span class="label">
+            Price
+          </span>
+
+          <span class="value">
+            ₹{{ plan.price }}
+          </span>
+
+        </div>
+
+        <div class="detail-item">
+
+          <span class="label">
+            Duration
+          </span>
+
+          <span class="value">
+            {{ plan.durationDays }}
+            Days
+          </span>
+
+        </div>
+
+        <div class="detail-item">
+
+          <span class="label">
+            Status
+          </span>
+
+          <span class="value">
+
+            @if (plan.isActive) {
+              Active
+            } @else {
+              Inactive
+            }
+
+          </span>
+
+        </div>
+
+        <div class="detail-item full-width">
+
+          <span class="label">
+            Description
+          </span>
+
+          <span class="value">
+            {{ plan.description }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </gf-app-card>
+
+  }
+
+</gf-page-layout>

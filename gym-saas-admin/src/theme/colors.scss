@@ -1,0 +1,34 @@
+/* =========================================================
+   GymFlow Color Palette
+========================================================= */
+
+:root {
+
+  /* Primary Brand */
+  --primary: #4F46E5;
+  --primary-dark: #3730A3;
+  --primary-light: #EEF2FF;
+
+  /* Status */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #0EA5E9;
+
+  /* Background */
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+
+  /* Text */
+  --text: #0F172A;
+  --text-secondary: #64748B;
+  --text-disabled: #94A3B8;
+
+  /* Border */
+  --border: #E2E8F0;
+
+  /* Sidebar */
+  --sidebar-bg: #0F172A;
+  --sidebar-hover: rgba(255,255,255,.08);
+
+}

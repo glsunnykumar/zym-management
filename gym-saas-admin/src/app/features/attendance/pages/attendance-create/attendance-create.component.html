@@ -1,0 +1,20 @@
+<gf-page-layout>
+
+  <gf-page-header
+    title="Add Attendance"
+    subtitle="Record member attendance">
+  </gf-page-header>
+
+  <gf-attendance-form
+
+    (save)="
+      createAttendance($event)
+    "
+
+    (cancel)="
+      onCancel()
+    ">
+
+  </gf-attendance-form>
+
+</gf-page-layout>

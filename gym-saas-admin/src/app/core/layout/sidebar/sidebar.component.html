@@ -1,0 +1,109 @@
+<div class="sidebar">
+
+  <div class="logo">
+
+    <mat-icon>fitness_center</mat-icon>
+
+    @if (!layout.sidebarCollapsed()) {
+    <span>GymFlow</span>
+    }
+
+  </div>
+
+  <mat-nav-list>
+
+    @for (item of menu; track item.label) {
+
+  @if(item.children?.length) {
+
+    <div
+      class="parent-item"
+      (click)="toggleMenu(item.label)">
+
+      <div class="parent-item__left">
+
+        <mat-icon>
+          {{ item.icon }}
+        </mat-icon>
+
+        @if (!layout.sidebarCollapsed()) {
+
+          <span>
+            {{ item.label }}
+          </span>
+
+        }
+
+      </div>
+
+      @if (!layout.sidebarCollapsed()) {
+
+        <mat-icon>
+
+          {{
+            isExpanded(item.label)
+              ? 'expand_less'
+              : 'expand_more'
+          }}
+
+        </mat-icon>
+
+      }
+
+    </div>
+
+    @if(isExpanded(item.label)) {
+
+      <div class="sidebar-children">
+
+        @for(child of item.children; track child.label) {
+
+          <a
+            mat-list-item
+            class="child-link"
+            [routerLink]="child.route">
+
+
+  <mat-icon>
+          {{ child.icon }}
+        </mat-icon>
+
+
+            {{ child.label }}
+
+          </a>
+
+        }
+
+      </div>
+
+    }
+
+  } @else {
+
+    <a
+      mat-list-item
+      [routerLink]="item.route"
+      routerLinkActive="active">
+
+      <mat-icon matListItemIcon>
+        {{ item.icon }}
+      </mat-icon>
+
+      @if (!layout.sidebarCollapsed()) {
+
+        <span matListItemTitle>
+          {{ item.label }}
+        </span>
+
+      }
+
+    </a>
+
+  }
+
+}
+  
+  </mat-nav-list>
+
+</div>
