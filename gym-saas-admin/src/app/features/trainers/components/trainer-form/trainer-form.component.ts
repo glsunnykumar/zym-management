@@ -42,6 +42,10 @@ import {
 } from '@angular/material/button';
 
 import { Trainer } from '../../models/trainer.model';
+import { FormCardComponent } from "../../../../shared/ui/forms/form-card/form-card.component";
+import { FormSectionComponent } from "../../../../shared/ui/forms/form-section/form-section.component";
+import { FormGridComponent } from "../../../../shared/ui/forms/form-grid/form-grid.component";
+import { FormActionsComponent } from "../../../../shared/ui/forms/form-actions/form-actions.component";
 
 @Component({
   selector: 'gf-trainer-form',
@@ -54,8 +58,12 @@ import { Trainer } from '../../models/trainer.model';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
-  ],
+    MatButtonModule,
+    FormCardComponent,
+    FormSectionComponent,
+    FormGridComponent,
+    FormActionsComponent
+],
   templateUrl: './trainer-form.component.html',
   styleUrl: './trainer-form.component.scss'
 })

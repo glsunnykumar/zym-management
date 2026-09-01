@@ -1,129 +1,180 @@
-<form
-  [formGroup]="form"
-  (ngSubmit)="submit()"
-  class="trainer-form">
+<gf-form-card>
 
-  <div class="grid">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Full Name</mat-label>
+    <!-- BASIC -->
 
-      <input
-        matInput
-        formControlName="fullName">
+    <gf-form-section
+      title="Trainer Information"
+      subtitle="Trainer personal details">
 
-    </mat-form-field>
+      <gf-form-grid>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
+        <mat-form-field appearance="outline">
 
-      <input
-        matInput
-        type="email"
-        formControlName="email">
+          <mat-label>
+            Full Name
+          </mat-label>
 
-    </mat-form-field>
+          <input
+            matInput
+            formControlName="fullName">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Phone</mat-label>
+        </mat-form-field>
 
-      <input
-        matInput
-        formControlName="phone">
+        <mat-form-field appearance="outline">
 
-    </mat-form-field>
+          <mat-label>
+            Email
+          </mat-label>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Specialization</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email">
 
-      <input
-        matInput
-        formControlName="specialization">
+        </mat-form-field>
 
-    </mat-form-field>
+        <mat-form-field appearance="outline">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Salary</mat-label>
+          <mat-label>
+            Phone
+          </mat-label>
 
-      <input
-        matInput
-        type="number"
-        formControlName="salary">
+          <input
+            matInput
+            formControlName="phone">
 
-    </mat-form-field>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Joining Date</mat-label>
+        <mat-form-field appearance="outline">
 
-      <input
-        matInput
-        [matDatepicker]="picker"
-        formControlName="joiningDate">
+          <mat-label>
+            Status
+          </mat-label>
 
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="picker">
-      </mat-datepicker-toggle>
+          <mat-select formControlName="status">
 
-      <mat-datepicker
-        #picker>
-      </mat-datepicker>
+            <mat-option value="active">
+              Active
+            </mat-option>
 
-    </mat-form-field>
+            <mat-option value="inactive">
+              Inactive
+            </mat-option>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Status</mat-label>
+          </mat-select>
 
-      <mat-select
-        formControlName="status">
+        </mat-form-field>
 
-        <mat-option value="active">
-          Active
-        </mat-option>
+      </gf-form-grid>
 
-        <mat-option value="inactive">
-          Inactive
-        </mat-option>
+    </gf-form-section>
 
-      </mat-select>
+    <!-- EMPLOYMENT -->
 
-    </mat-form-field>
+    <gf-form-section
+      title="Employment Information"
+      subtitle="Trainer role and compensation">
 
-  </div>
+      <gf-form-grid>
 
-  <mat-form-field
-    appearance="outline"
-    class="notes-field">
+        <mat-form-field appearance="outline">
 
-    <mat-label>Notes</mat-label>
+          <mat-label>
+            Specialization
+          </mat-label>
 
-    <textarea
-      matInput
-      rows="4"
-      formControlName="notes">
-    </textarea>
+          <input
+            matInput
+            formControlName="specialization">
 
-  </mat-form-field>
+        </mat-form-field>
 
-  <div class="actions">
+        <mat-form-field appearance="outline">
 
-    <button
-      type="button"
-      mat-stroked-button
-      (click)="cancel.emit()">
+          <mat-label>
+            Salary
+          </mat-label>
 
-      Cancel
+          <input
+            matInput
+            type="number"
+            formControlName="salary">
 
-    </button>
+        </mat-form-field>
 
-    <button
-      type="submit"
-      mat-flat-button>
+        <mat-form-field appearance="outline">
 
-      Save Trainer
+          <mat-label>
+            Joining Date
+          </mat-label>
 
-    </button>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="joiningDate">
 
-  </div>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker">
+          </mat-datepicker-toggle>
 
-</form>
+          <mat-datepicker
+            #picker>
+          </mat-datepicker>
+
+        </mat-form-field>
+
+      </gf-form-grid>
+
+    </gf-form-section>
+
+    <!-- ADDITIONAL -->
+
+    <gf-form-section
+      title="Additional Information">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Notes
+        </mat-label>
+
+        <textarea
+          matInput
+          rows="4"
+          formControlName="notes">
+        </textarea>
+
+      </mat-form-field>
+
+    </gf-form-section>
+
+    <gf-form-actions>
+
+      <button
+        type="button"
+        mat-stroked-button
+        (click)="cancel.emit()">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary">
+
+        {{ trainer ? 'Update Trainer' : 'Create Trainer' }}
+
+      </button>
+
+    </gf-form-actions>
+
+  </form>
+
+</gf-form-card>

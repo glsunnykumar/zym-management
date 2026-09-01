@@ -18,11 +18,13 @@ import { PaymentService } from '../payments/services/payment.service';
 import { AttendanceService } from '../attendance/services/attendance.service';
 import { MemberService } from '../members/services/member.service';
 import { combineLatest } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'gf-dashboard-page',
   imports: [
     MatButtonModule,
+    CommonModule,
 
     PageLayoutComponent,
     PageHeaderComponent,
@@ -63,6 +65,20 @@ export class DashboardComponent {
     pendingPayments: 0,
   });
 
+  readonly recentMembers = signal<any[]>([]);
+
+  readonly recentAttendance = signal<any[]>([]);
+
+  readonly expiringMembers = signal<any[]>([]);
+
+  readonly revenueChartData = signal<{
+    labels: string[];
+    values: number[];
+  }>({
+    labels: [],
+    values: [],
+  });
+
   constructor() {
     this.navigation.configure({
       title: 'Dashboard',
@@ -72,11 +88,8 @@ export class DashboardComponent {
 
     combineLatest([
       this.memberService.getMembers(),
-
       this.planService.getPlans(),
-
       this.paymentService.getPayments(),
-
       this.attendanceService.getAttendance(),
     ]).subscribe(([members, plans, payments, attendance]) => {
       const today = new Date().toISOString().split('T')[0];
@@ -98,6 +111,41 @@ export class DashboardComponent {
 
         pendingPayments: payments.filter((p) => p.status !== 'paid').length,
       });
+
+      // Recent Members
+
+      this.recentMembers.set(
+        [...members]
+          .sort((a, b) => (b.createdAt ?? 0) - (a.createdAt ?? 0))
+          .slice(0, 5),
+      );
+
+      // Recent Attendance
+
+      this.recentAttendance.set(
+        [...attendance]
+          .sort((a, b) => b.date.localeCompare(a.date))
+          .slice(0, 10),
+      );
+      // Expiring Members
+
+      const todayDate = new Date();
+
+      const next7Days = new Date();
+
+      next7Days.setDate(next7Days.getDate() + 7);
+
+      this.expiringMembers.set(
+        members.filter((member) => {
+          if (!member.expiryDate) {
+            return false;
+          }
+
+          const expiryDate = new Date(member.expiryDate);
+
+          return expiryDate >= todayDate && expiryDate <= next7Days;
+        }),
+      );
     });
   }
 }

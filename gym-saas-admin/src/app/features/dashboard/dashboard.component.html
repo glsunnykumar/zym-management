@@ -67,12 +67,39 @@
 
             <gf-dashboard-item [span]="4">
 
+
                 <gf-app-card title="Recent Members">
 
-                    <p>
-                        Active Members:
-                        {{ stats().activeMembers }}
-                    </p>
+                    @if (recentMembers().length === 0) {
+
+                    <div class="empty-state">
+                        No recent members
+                    </div>
+
+                    }
+
+                    @for (
+                    member of recentMembers();
+                    track member.id
+                    ) {
+
+                    <div class="dashboard-list-item">
+
+                        <div>
+
+                            <div class="item-title">
+                                {{ member.name }}
+                            </div>
+
+                            <div class="item-subtitle">
+                                {{ member.phone }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    }
 
                 </gf-app-card>
 
@@ -88,15 +115,96 @@
 
                 </gf-stat-card>
 
+                <gf-dashboard-item [span]="4">
+
+                    <gf-app-card title="Expiring Soon">
+
+                        @if (expiringMembers().length === 0) {
+
+                        <div class="empty-state">
+
+                            No memberships expiring
+
+                        </div>
+
+                        }
+
+                        @for (
+                        member of expiringMembers();
+                        track member.id
+                        ) {
+
+                        <div class="dashboard-list-item">
+
+                            <div>
+
+                                <div class="item-title">
+                                    {{ member.name }}
+                                </div>
+
+                                <div class="item-subtitle">
+                                    Expires:
+                                    {{ member.expiryDate }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        }
+
+                    </gf-app-card>
+
+                </gf-dashboard-item>
+
             </gf-dashboard-item>
 
             <gf-dashboard-item [span]="12">
 
                 <gf-app-card title="Attendance Summary">
 
-                    <div class="gf-placeholder">
+                    <div class="attendance-widget">
 
-                        Attendance Table Placeholder
+                        @if (recentAttendance().length === 0) {
+
+                        <div class="empty-state">
+                            No attendance records
+                        </div>
+
+                        }
+
+                        @for (
+                        item of recentAttendance();
+                        track $index
+                        ) {
+
+                        <div class="dashboard-list-item">
+
+                            <div>
+
+                                <div class="item-title">
+
+                                    {{ item.memberName }}
+
+                                </div>
+
+                                <div class="item-subtitle">
+
+                                    {{ item.date }}
+
+                                </div>
+
+                            </div>
+
+                            <span class="attendance-status">
+
+                                {{ item.status }}
+
+                            </span>
+
+                        </div>
+
+                        }
 
                     </div>
 

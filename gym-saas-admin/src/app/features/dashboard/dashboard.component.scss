@@ -1,0 +1,35 @@
+.dashboard-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid
+    rgba(0, 0, 0, 0.08);
+}
+
+.item-title {
+  font-weight: 500;
+}
+
+.item-subtitle {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.empty-state {
+  padding: 24px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.attendance-status {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.attendance-widget {
+  display: flex;
+  flex-direction: column;
+}
