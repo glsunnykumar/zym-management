@@ -20,7 +20,7 @@ export const TRAINER_ROUTES: Routes = [
     path: ':id',
     loadComponent: () =>
       import('./pages/detail/detail.component')
-        .then(m => m.DetailComponent)
+        .then(m => m.TrainerDetailsComponent)
   },
 
   {

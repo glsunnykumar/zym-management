@@ -1,1 +1,151 @@
-<p>detail works!</p>
+@if (trainer(); as trainer) {
+
+<div class="page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h2>
+        Trainer Details
+      </h2>
+
+      <p>
+        View trainer information
+      </p>
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        mat-stroked-button
+        (click)="goBack()">
+
+        Back
+
+      </button>
+
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="editTrainer()">
+
+        <mat-icon>
+          edit
+        </mat-icon>
+
+        Edit Trainer
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="details-grid">
+
+        <div class="field">
+
+          <label>Name</label>
+
+          <span>
+            {{ trainer.fullName }}
+          </span>
+
+        </div>
+
+        <div class="field">
+
+          <label>Email</label>
+
+          <span>
+            {{ trainer.email }}
+          </span>
+
+        </div>
+
+        <div class="field">
+
+          <label>Phone</label>
+
+          <span>
+            {{ trainer.phone }}
+          </span>
+
+        </div>
+
+        <div class="field">
+
+          <label>Specialization</label>
+
+          <span>
+            {{ trainer.specialization }}
+          </span>
+
+        </div>
+
+        <div class="field">
+
+          <label>Salary</label>
+
+          <span>
+            ₹{{ trainer.salary }}
+          </span>
+
+        </div>
+
+        <div class="field">
+
+          <label>Joining Date</label>
+
+          <span>
+            {{ trainer.joiningDate }}
+          </span>
+
+        </div>
+
+        <div class="field">
+
+          <label>Status</label>
+
+          <span
+            class="status"
+            [class.active]="trainer.status === 'active'"
+            [class.inactive]="trainer.status === 'inactive'">
+
+            {{ trainer.status }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      @if (trainer.notes) {
+
+      <div class="notes-section">
+
+        <h3>
+          Notes
+        </h3>
+
+        <p>
+          {{ trainer.notes }}
+        </p>
+
+      </div>
+
+      }
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+
+}
