@@ -1,219 +1,242 @@
 <gf-page-layout>
 
-    <gf-page-header title="Dashboard" subtitle="Welcome back! Here is your gym overview.">
+  <gf-page-header
+    title="Dashboard"
+    subtitle="Welcome back! Here is your gym overview.">
+
+    <button mat-flat-button>
+      Add Member
+    </button>
+
+  </gf-page-header>
+
+  <gf-dashboard-section
+    title="Overview"
+    subtitle="Today's key metrics">
+
+    <gf-dashboard-grid>
+
+      <!-- KPI CARDS -->
+
+      <gf-dashboard-item [span]="2">
+        <gf-stat-card
+          title="Members"
+          [value]="stats().totalMembers"
+          icon="groups"
+          change="+12%"
+          changeType="positive"
+          description="Compared to last month">
+        </gf-stat-card>
+      </gf-dashboard-item>
+
+      <gf-dashboard-item [span]="2">
+        <gf-stat-card
+          title="Revenue"
+          [value]="'₹' + stats().monthlyRevenue"
+          icon="payments"
+          change="+8%"
+          changeType="positive"
+          description="Monthly revenue">
+        </gf-stat-card>
+      </gf-dashboard-item>
+
+      <gf-dashboard-item [span]="2">
+        <gf-stat-card
+          title="Attendance"
+          [value]="stats().todayAttendance"
+          icon="fact_check"
+          change="-2%"
+          changeType="negative"
+          description="Today's attendance">
+        </gf-stat-card>
+      </gf-dashboard-item>
 
-        <button mat-flat-button>
+      <gf-dashboard-item [span]="2">
+        <gf-stat-card
+          title="Plans"
+          [value]="stats().totalPlans"
+          icon="workspace_premium"
+          description="Active membership plans">
+        </gf-stat-card>
+      </gf-dashboard-item>
 
-            Add Member
+      <gf-dashboard-item [span]="2">
+        <gf-stat-card
+          title="Active Members"
+          [value]="stats().activeMembers"
+          icon="person"
+          description="Currently active">
+        </gf-stat-card>
+      </gf-dashboard-item>
 
-        </button>
+      <gf-dashboard-item [span]="2">
+        <gf-stat-card
+          title="Pending Payments"
+          [value]="stats().pendingPayments"
+          icon="warning"
+          description="Require follow-up">
+        </gf-stat-card>
+      </gf-dashboard-item>
 
-    </gf-page-header>
+      <!-- REVENUE CHART -->
 
-    <gf-dashboard-section title="Overview" subtitle="Today's key metrics">
+      <gf-dashboard-item [span]="8">
 
-        <gf-dashboard-grid>
+        <gf-app-card
+          title="Revenue Overview"
+          subtitle="Last 30 Days">
 
-            <gf-dashboard-item [span]="3">
+          <div
+            style="
+              height:300px;
+              display:flex;
+              justify-content:center;
+              align-items:center;
+              color:var(--gf-text-secondary);
+            ">
 
-                <gf-stat-card title="Members" [value]="stats().totalMembers" icon="groups" change="+12%"
-                    changeType="positive" description="Compared to last month">
-                </gf-stat-card>
+            Revenue Chart Placeholder
 
-            </gf-dashboard-item>
+          </div>
 
-            <gf-dashboard-item [span]="3">
+        </gf-app-card>
 
-                <gf-stat-card title="Revenue" [value]="'₹' + stats().monthlyRevenue" icon="payments" change="+8%"
-                    changeType="positive" description="Monthly revenue">
-                </gf-stat-card>
+      </gf-dashboard-item>
 
-            </gf-dashboard-item>
+      <!-- RECENT MEMBERS -->
 
-            <gf-dashboard-item [span]="3">
+      <gf-dashboard-item [span]="4">
 
-                <gf-stat-card title="Attendance" [value]="stats().todayAttendance" icon="fact_check" change="-2%"
-                    changeType="negative" description="Today's attendance">
-                </gf-stat-card>
+        <gf-app-card title="Recent Members">
 
-            </gf-dashboard-item>
+          @if (recentMembers().length === 0) {
 
-            <gf-dashboard-item [span]="3">
+            <div class="empty-state">
+              No recent members
+            </div>
 
-                <gf-stat-card title="Plans" [value]="stats().totalPlans" icon="workspace_premium"
-                    description="Active membership plans">
-                </gf-stat-card>
+          }
 
-            </gf-dashboard-item>
+          @for (
+            member of recentMembers();
+            track member.id
+          ) {
 
-            <gf-dashboard-item [span]="8">
+            <div class="dashboard-list-item">
 
-                <gf-app-card title="Revenue Overview" subtitle="Last 30 Days">
+              <div>
 
-                    <div style="
-                        height:300px;
-                        display:flex;
-                        justify-content:center;
-                        align-items:center;
-                        color:var(--gf-text-secondary);">
+                <div class="item-title">
+                  {{ member.name }}
+                </div>
 
-                        Revenue Chart Placeholder
+                <div class="item-subtitle">
+                  {{ member.phone }}
+                </div>
 
-                    </div>
+              </div>
 
-                </gf-app-card>
+            </div>
 
-            </gf-dashboard-item>
+          }
 
-            <gf-dashboard-item [span]="4">
+        </gf-app-card>
 
+      </gf-dashboard-item>
 
-                <gf-app-card title="Recent Members">
+      <!-- EXPIRING MEMBERSHIPS -->
 
-                    @if (recentMembers().length === 0) {
+      <gf-dashboard-item [span]="4">
 
-                    <div class="empty-state">
-                        No recent members
-                    </div>
+        <gf-app-card title="Expiring Soon">
 
-                    }
+          @if (expiringMembers().length === 0) {
 
-                    @for (
-                    member of recentMembers();
-                    track member.id
-                    ) {
+            <div class="empty-state">
+              No memberships expiring
+            </div>
 
-                    <div class="dashboard-list-item">
+          }
 
-                        <div>
+          @for (
+            member of expiringMembers();
+            track member.id
+          ) {
 
-                            <div class="item-title">
-                                {{ member.name }}
-                            </div>
+            <div class="dashboard-list-item">
 
-                            <div class="item-subtitle">
-                                {{ member.phone }}
-                            </div>
+              <div>
 
-                        </div>
+                <div class="item-title">
+                  {{ member.name }}
+                </div>
 
-                    </div>
+                <div class="item-subtitle">
+                  Expires:
+                  {{ member.expiryDate }}
+                </div>
 
-                    }
+              </div>
 
-                </gf-app-card>
+            </div>
 
+          }
 
+        </gf-app-card>
 
+      </gf-dashboard-item>
 
-            </gf-dashboard-item>
+      <!-- ATTENDANCE SUMMARY -->
 
+      <gf-dashboard-item [span]="8">
 
-            <gf-dashboard-item [span]="3">
+        <gf-app-card title="Attendance Summary">
 
-                <gf-stat-card title="Pending Payments" [value]="stats().pendingPayments" icon="warning">
+          <div class="attendance-widget">
 
-                </gf-stat-card>
+            @if (recentAttendance().length === 0) {
 
-                <gf-dashboard-item [span]="4">
+              <div class="empty-state">
+                No attendance records
+              </div>
 
-                    <gf-app-card title="Expiring Soon">
+            }
 
-                        @if (expiringMembers().length === 0) {
+            @for (
+              item of recentAttendance();
+              track $index
+            ) {
 
-                        <div class="empty-state">
+              <div class="dashboard-list-item">
 
-                            No memberships expiring
+                <div>
 
-                        </div>
+                  <div class="item-title">
+                    {{ item.memberName }}
+                  </div>
 
-                        }
+                  <div class="item-subtitle">
+                    {{ item.date }}
+                  </div>
 
-                        @for (
-                        member of expiringMembers();
-                        track member.id
-                        ) {
+                </div>
 
-                        <div class="dashboard-list-item">
+                <span class="attendance-status">
+                  {{ item.status }}
+                </span>
 
-                            <div>
+              </div>
 
-                                <div class="item-title">
-                                    {{ member.name }}
-                                </div>
+            }
 
-                                <div class="item-subtitle">
-                                    Expires:
-                                    {{ member.expiryDate }}
-                                </div>
+          </div>
 
-                            </div>
+        </gf-app-card>
 
-                        </div>
+      </gf-dashboard-item>
 
-                        }
+    </gf-dashboard-grid>
 
-                    </gf-app-card>
-
-                </gf-dashboard-item>
-
-            </gf-dashboard-item>
-
-            <gf-dashboard-item [span]="12">
-
-                <gf-app-card title="Attendance Summary">
-
-                    <div class="attendance-widget">
-
-                        @if (recentAttendance().length === 0) {
-
-                        <div class="empty-state">
-                            No attendance records
-                        </div>
-
-                        }
-
-                        @for (
-                        item of recentAttendance();
-                        track $index
-                        ) {
-
-                        <div class="dashboard-list-item">
-
-                            <div>
-
-                                <div class="item-title">
-
-                                    {{ item.memberName }}
-
-                                </div>
-
-                                <div class="item-subtitle">
-
-                                    {{ item.date }}
-
-                                </div>
-
-                            </div>
-
-                            <span class="attendance-status">
-
-                                {{ item.status }}
-
-                            </span>
-
-                        </div>
-
-                        }
-
-                    </div>
-
-                </gf-app-card>
-
-            </gf-dashboard-item>
-
-        </gf-dashboard-grid>
-
-    </gf-dashboard-section>
+  </gf-dashboard-section>
 
 </gf-page-layout>
