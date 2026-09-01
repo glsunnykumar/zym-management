@@ -4,6 +4,10 @@ import { PageHeaderComponent } from '../../../../shared/ui/layout/page-header/pa
 import { MemberFormComponent } from '../../components/member-form/member-form.component';
 import { MemberService } from '../../services/member.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmDialogComponent }
+from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog }
+from '@angular/material/dialog';
 
 @Component({
   selector: 'gf-member-edit',
@@ -31,6 +35,9 @@ export class MemberEditComponent implements OnInit {
 
   readonly member =
     signal<any | null>(null);
+
+      private readonly dialog =
+    inject(MatDialog);
 
   async ngOnInit(): Promise<void>  {
 

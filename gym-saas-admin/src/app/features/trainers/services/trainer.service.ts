@@ -31,27 +31,26 @@ export class TrainerService {
   }
 
   async getTrainerById(
-    id: string
-  ): Promise<Trainer | null> {
+  id: string
+): Promise<Trainer | null> {
 
-    const ref =
-      doc(
-        this.firestore,
-        `${this.collectionName}/${id}`
-      );
+  const ref = doc(
+    this.firestore,
+    `${this.collectionName}/${id}`
+  );
 
-    const snap =
-      await getDoc(ref);
+  const snap = await getDoc(ref);
 
-    if (!snap.exists()) {
-      return null;
-    }
-
-    return {
-     
-      ...(snap.data() as Trainer)
-    };
+  if (!snap.exists()) {
+    return null;
   }
+
+  return {
+    id: snap.id,
+    ...(snap.data() as Omit<Trainer, 'id'>)
+  };
+
+}
 
 async createTrainer(
   trainer: any

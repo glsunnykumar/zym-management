@@ -1,1 +1,23 @@
-<p>trainer-edit works!</p>
+<gf-page-layout>
+
+  <gf-page-header
+    title="Edit Trainer"
+    subtitle="Update trainer information">
+  </gf-page-header>
+
+  @if (loading()) {
+
+    <p>Loading trainer...</p>
+
+  } @else {
+
+    <gf-trainer-form
+      [trainer]="trainer()!"
+      submitLabel="Update Trainer"
+      (save)="updateTrainer($event)"
+      (cancel)="cancel()">
+    </gf-trainer-form>
+
+  }
+
+</gf-page-layout>
