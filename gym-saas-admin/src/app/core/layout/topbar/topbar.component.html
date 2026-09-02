@@ -40,6 +40,36 @@
 
   </button>
 
+  <mat-menu #notificationMenu="matMenu">
+
+  @for (
+    notification of notifications();
+    track notification.id
+  ) {
+
+    <button mat-menu-item>
+      {{ notification.message }}
+    </button>
+
+  }
+
+</mat-menu>
+
+  <button
+  mat-icon-button
+  [matMenuTriggerFor]="notificationMenu">
+
+  <mat-icon
+    [matBadge]="notifications().length"
+    matBadgeColor="warn"
+    [matBadgeHidden]="notifications().length === 0">
+
+    notifications
+
+  </mat-icon>
+
+</button>
+
   <mat-menu #userMenu="matMenu">
 
    <div class="user-info">
