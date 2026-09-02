@@ -95,7 +95,21 @@
               color:var(--gf-text-secondary);
             ">
 
-            Revenue Chart Placeholder
+          <div class="chart-container">
+
+  <canvas
+
+    baseChart
+
+    [type]="'line'"
+
+    [data]="revenueChartData()"
+
+    [options]="revenueChartOptions">
+
+  </canvas>
+
+</div>
 
           </div>
 

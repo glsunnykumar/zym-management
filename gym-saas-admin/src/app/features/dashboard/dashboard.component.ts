@@ -19,6 +19,9 @@ import { AttendanceService } from '../attendance/services/attendance.service';
 import { MemberService } from '../members/services/member.service';
 import { combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { BaseChartDirective } from 'ng2-charts';
+
+import { ChartConfiguration, ChartType } from 'chart.js';
 
 @Component({
   selector: 'gf-dashboard-page',
@@ -32,6 +35,7 @@ import { CommonModule } from '@angular/common';
     DashboardSectionComponent,
     DashboardGridComponent,
     DashboardItemComponent,
+    BaseChartDirective,
 
     StatCardComponent,
     AppCardComponent,
@@ -71,13 +75,44 @@ export class DashboardComponent {
 
   readonly expiringMembers = signal<any[]>([]);
 
-  readonly revenueChartData = signal<{
-    labels: string[];
-    values: number[];
-  }>({
+  readonly revenueChartData = signal<ChartConfiguration<'line'>['data']>({
     labels: [],
-    values: [],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [],
+        tension: 0.4,
+        fill: true,
+      },
+    ],
   });
+
+  readonly revenueChartOptions:
+ChartConfiguration<'line'>['options'] = {
+
+  responsive: true,
+
+  maintainAspectRatio: false,
+
+  plugins: {
+
+    legend: {
+      display: true
+    }
+
+  },
+
+  scales: {
+
+    y: {
+
+      beginAtZero: true
+
+    }
+
+  }
+
+};
 
   constructor() {
     this.navigation.configure({
@@ -146,6 +181,45 @@ export class DashboardComponent {
           return expiryDate >= todayDate && expiryDate <= next7Days;
         }),
       );
+
+      const last30Days = Array.from({ length: 30 }, (_, i) => {
+        const d = new Date();
+
+        d.setDate(d.getDate() - (29 - i));
+
+        return d;
+      });
+
+      const labels = last30Days.map((d) =>
+        d.toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+        }),
+      );
+
+      const values = last30Days.map((date) => {
+        const day = date.toISOString().split('T')[0];
+
+        return payments
+          .filter((p) => p.paymentDate === day)
+          .reduce((sum, p) => sum + p.amount, 0);
+      });
+
+      this.revenueChartData.set({
+        labels,
+
+        datasets: [
+          {
+            label: 'Revenue',
+
+            data: values,
+
+            tension: 0.4,
+
+            fill: true,
+          },
+        ],
+      });
     });
   }
 }
