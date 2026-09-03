@@ -24,6 +24,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NotificationService } from '../../core/services/notification/notification.service';
 import { user } from '@angular/fire/auth';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'gf-dashboard-page',
@@ -58,6 +59,8 @@ export class DashboardComponent {
   private readonly attendanceService = inject(AttendanceService);
 
   private readonly notificationService = inject(NotificationService);
+
+    private readonly authService = inject(AuthService);
 
   readonly stats = signal({
     totalMembers: 0,
@@ -109,12 +112,21 @@ export class DashboardComponent {
     },
   };
 
+  
+
   constructor() {
     this.navigation.configure({
       title: 'Dashboard',
 
       subtitle: 'Welcome back! Here is your gym overview.',
     });
+
+      const user = this.authService.currentUser();
+
+    if (!user) {
+      return;
+    }
+
 
     combineLatest([
       this.memberService.getMembers(),
@@ -184,8 +196,6 @@ export class DashboardComponent {
         if (!member.expiryDate) {
           continue;
         }
-        console.log('Checking expiry for member:', member.name, member.expiryDate);
-
         const expiryDate = new Date(member.expiryDate);
         const today = new Date();
 
@@ -194,7 +204,7 @@ export class DashboardComponent {
         );
 
         if (diffDays >= 0 && diffDays <= 7) {
-          await this.notificationService.createNotification(member.id, {
+          await this.notificationService.createNotification(user.uid, {
             id: `expiry-${member.id}`,
             memberId: member.id,
             memberName: member.name,

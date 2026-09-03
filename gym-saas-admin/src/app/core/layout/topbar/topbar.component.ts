@@ -26,13 +26,9 @@ import { SettingService } from '../../../service/setting/setting.service';
 
 import { AppSettings } from '../../../features/settings/models/settings.model';
 
-import {
-  NotificationService,
-} from '../../../core/services/notification/notification.service';
+import { NotificationService } from '../../../core/services/notification/notification.service';
 
-import {
-  AppNotification,
-} from '../../models/notification.model';
+import { AppNotification } from '../../models/notification.model';
 import { user } from '@angular/fire/auth';
 
 @Component({
@@ -53,38 +49,26 @@ import { user } from '@angular/fire/auth';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopbarComponent implements OnInit {
+  protected readonly layout = inject(LayoutService);
 
-  protected readonly layout =
-    inject(LayoutService);
+  protected readonly navigation = inject(NavigationService);
 
-  protected readonly navigation =
-    inject(NavigationService);
+  protected readonly theme = inject(ThemeService);
 
-  protected readonly theme =
-    inject(ThemeService);
+  private readonly authService = inject(AuthService);
 
-  private readonly authService =
-    inject(AuthService);
+  private readonly router = inject(Router);
 
-  private readonly router =
-    inject(Router);
+  private readonly settingsService = inject(SettingService);
 
-  private readonly settingsService =
-    inject(SettingService);
+  private readonly notificationService = inject(NotificationService);
 
-  private readonly notificationService =
-    inject(NotificationService);
+  readonly settings = signal<AppSettings | null>(null);
 
-  readonly settings =
-    signal<AppSettings | null>(null);
-
-  readonly notifications =
-    signal<AppNotification[]>([]);
+  readonly notifications = signal<AppNotification[]>([]);
 
   async ngOnInit(): Promise<void> {
-
-    const user =
-      this.authService.currentUser();
+    const user = this.authService.currentUser();
 
     if (!user) {
       return;
@@ -92,73 +76,41 @@ export class TopbarComponent implements OnInit {
 
     // Load Gym Settings
 
-    console.log(
-      'Loading settings for user:',
-      user.uid
-    );
+    console.log('Loading settings for user:', user.uid);
 
-    const settings =
-      await this.settingsService.getSettings();
+    const settings = await this.settingsService.getSettings();
 
     this.settings.set(settings);
 
     // Load Notifications
 
     this.notificationService
-      .getNotifications('1')
-      .subscribe(data => {
-
-        console.log(
-          'Notifications received:',
-          data
-        );
-
+      .getNotifications(user.uid)
+      .subscribe((notifications) => {
+        console.log('Loaded notifications:', notifications);
         this.notifications.set(
-          data.filter(
-            notification => !notification.read
-          )
+          notifications
+            .filter((n) => !n.read)
+            .sort((a, b) => b.createdAt - a.createdAt),
         );
-
       });
-
   }
 
   get currentUser() {
-
     return this.authService.currentUser;
-
   }
 
   async logout(): Promise<void> {
-
     await this.authService.logout();
 
-    await this.router.navigate([
-      '/auth/login'
-    ]);
-
+    await this.router.navigate(['/auth/login']);
   }
 
-  async markAsRead(
-    notification: AppNotification
-  ): Promise<void> {
-
+  async markAsRead(notification: AppNotification): Promise<void> {
     try {
-
-      await this.notificationService
-        .markAsRead(
-          '1',
-          notification.id);
-
+      await this.notificationService.markAsRead('1', notification.id);
     } catch (error) {
-
-      console.error(
-        'Failed to mark notification as read',
-        error
-      );
-
+      console.error('Failed to mark notification as read', error);
     }
-
   }
-
 }
