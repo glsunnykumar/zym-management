@@ -23,6 +23,7 @@ import { BaseChartDirective } from 'ng2-charts';
 
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NotificationService } from '../../core/services/notification/notification.service';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'gf-dashboard-page',
@@ -165,37 +166,26 @@ export class DashboardComponent {
       next7Days.setDate(next7Days.getDate() + 7);
 
       this.expiringMembers.set(
-  members.filter((member) => {
-    if (!member.expiryDate) {
-      return false;
-    }
+        members.filter((member) => {
+          if (!member.expiryDate) {
+            return false;
+          }
 
-    const expiryDate = new Date(member.expiryDate);
+          const expiryDate = new Date(member.expiryDate);
 
-    const isAfterToday = expiryDate >= todayDate;
-    const isBeforeNext7Days = expiryDate <= next7Days;
+          const isAfterToday = expiryDate >= todayDate;
+          const isBeforeNext7Days = expiryDate <= next7Days;
 
-    console.log({
-      name: member.name,
-      expiryDate,
-      todayDate,
-      next7Days,
-      isAfterToday,
-      isBeforeNext7Days,
-      FINAL: isAfterToday && isBeforeNext7Days
-    });
+          return isAfterToday && isBeforeNext7Days;
+        }),
+      );
 
-    return isAfterToday && isBeforeNext7Days;
-  })
-);
-
-console.log('FINAL EXPIRING MEMBERS:', this.expiringMembers());
-     
       for (const member of members) {
         if (!member.expiryDate) {
           continue;
         }
-       
+        console.log('Checking expiry for member:', member.name, member.expiryDate);
+
         const expiryDate = new Date(member.expiryDate);
         const today = new Date();
 
@@ -204,7 +194,7 @@ console.log('FINAL EXPIRING MEMBERS:', this.expiringMembers());
         );
 
         if (diffDays >= 0 && diffDays <= 7) {
-          await this.notificationService.createNotification('1',{
+          await this.notificationService.createNotification(member.id, {
             id: `expiry-${member.id}`,
             memberId: member.id,
             memberName: member.name,

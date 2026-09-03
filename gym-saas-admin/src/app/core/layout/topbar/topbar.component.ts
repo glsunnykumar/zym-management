@@ -92,6 +92,11 @@ export class TopbarComponent implements OnInit {
 
     // Load Gym Settings
 
+    console.log(
+      'Loading settings for user:',
+      user.uid
+    );
+
     const settings =
       await this.settingsService.getSettings();
 
@@ -100,8 +105,13 @@ export class TopbarComponent implements OnInit {
     // Load Notifications
 
     this.notificationService
-      .getNotifications(user.uid)
+      .getNotifications('1')
       .subscribe(data => {
+
+        console.log(
+          'Notifications received:',
+          data
+        );
 
         this.notifications.set(
           data.filter(
