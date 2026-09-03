@@ -22,6 +22,7 @@ import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 
 import { ChartConfiguration, ChartType } from 'chart.js';
+import { NotificationService } from '../../core/services/notification/notification.service';
 
 @Component({
   selector: 'gf-dashboard-page',
@@ -55,6 +56,8 @@ export class DashboardComponent {
 
   private readonly attendanceService = inject(AttendanceService);
 
+  private readonly notificationService = inject(NotificationService);
+
   readonly stats = signal({
     totalMembers: 0,
 
@@ -87,32 +90,23 @@ export class DashboardComponent {
     ],
   });
 
-  readonly revenueChartOptions:
-ChartConfiguration<'line'>['options'] = {
+  readonly revenueChartOptions: ChartConfiguration<'line'>['options'] = {
+    responsive: true,
 
-  responsive: true,
+    maintainAspectRatio: false,
 
-  maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+      },
+    },
 
-  plugins: {
-
-    legend: {
-      display: true
-    }
-
-  },
-
-  scales: {
-
-    y: {
-
-      beginAtZero: true
-
-    }
-
-  }
-
-};
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
 
   constructor() {
     this.navigation.configure({
@@ -126,7 +120,7 @@ ChartConfiguration<'line'>['options'] = {
       this.planService.getPlans(),
       this.paymentService.getPayments(),
       this.attendanceService.getAttendance(),
-    ]).subscribe(([members, plans, payments, attendance]) => {
+    ]).subscribe(async ([members, plans, payments, attendance]) => {
       const today = new Date().toISOString().split('T')[0];
 
       const currentMonth = today.substring(0, 7);
@@ -171,16 +165,57 @@ ChartConfiguration<'line'>['options'] = {
       next7Days.setDate(next7Days.getDate() + 7);
 
       this.expiringMembers.set(
-        members.filter((member) => {
-          if (!member.expiryDate) {
-            return false;
-          }
+  members.filter((member) => {
+    if (!member.expiryDate) {
+      return false;
+    }
 
-          const expiryDate = new Date(member.expiryDate);
+    const expiryDate = new Date(member.expiryDate);
 
-          return expiryDate >= todayDate && expiryDate <= next7Days;
-        }),
-      );
+    const isAfterToday = expiryDate >= todayDate;
+    const isBeforeNext7Days = expiryDate <= next7Days;
+
+    console.log({
+      name: member.name,
+      expiryDate,
+      todayDate,
+      next7Days,
+      isAfterToday,
+      isBeforeNext7Days,
+      FINAL: isAfterToday && isBeforeNext7Days
+    });
+
+    return isAfterToday && isBeforeNext7Days;
+  })
+);
+
+console.log('FINAL EXPIRING MEMBERS:', this.expiringMembers());
+     
+      for (const member of members) {
+        if (!member.expiryDate) {
+          continue;
+        }
+       
+        const expiryDate = new Date(member.expiryDate);
+        const today = new Date();
+
+        const diffDays = Math.ceil(
+          (expiryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+        );
+
+        if (diffDays >= 0 && diffDays <= 7) {
+          await this.notificationService.createNotification('1',{
+            id: `expiry-${member.id}`,
+            memberId: member.id,
+            memberName: member.name,
+            type: 'membership-expiry',
+            message: `${member.name} expires in ${diffDays} days`,
+            expiryDate: member.expiryDate,
+            read: false,
+            createdAt: Date.now(),
+          });
+        }
+      }
 
       const last30Days = Array.from({ length: 30 }, (_, i) => {
         const d = new Date();

@@ -2,6 +2,7 @@ import {
   Injectable,
   inject
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import {
   Auth,
@@ -23,8 +24,14 @@ export class AuthService {
   private readonly auth =
     inject(Auth);
 
-  readonly user$: Observable<User | null> =
-    authState(this.auth);
+   readonly currentUser = toSignal(
+    authState(this.auth),
+    {
+      initialValue: null
+    }
+  );
+
+  
 
   async login(
     email: string,
@@ -44,12 +51,6 @@ export class AuthService {
     await signOut(
       this.auth
     );
-
-  }
-
-  get currentUser(): User | null {
-
-    return this.auth.currentUser;
 
   }
 

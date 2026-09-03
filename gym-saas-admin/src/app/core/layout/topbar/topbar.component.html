@@ -47,7 +47,9 @@
     track notification.id
   ) {
 
-    <button mat-menu-item>
+    <button mat-menu-item
+     (click)="markAsRead(notification)"
+    >
       {{ notification.message }}
     </button>
 

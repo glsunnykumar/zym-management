@@ -1,95 +1,263 @@
 import { inject, Injectable } from '@angular/core';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  setDoc,
+  updateDoc
+} from '@angular/fire/firestore';
+
+import { Observable } from 'rxjs';
+
 import { Member } from '../../../features/members/models/member.model';
 
+import { AppNotification } from '../../models/notification.model';
+
 export interface NotificationItem {
+
   id: string;
+
   title: string;
+
   message: string;
+
   type: 'warning' | 'info' | 'success';
+
   createdAt: number;
+
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NotificationService {
-  private readonly snackBar = inject(MatSnackBar);
 
-  success(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 3000,
+  private readonly snackBar =
+    inject(MatSnackBar);
 
-      panelClass: ['success-snackbar'],
-    });
+  private readonly firestore =
+    inject(Firestore);
+
+  // =========================
+  // Firestore Notifications
+  // =========================
+
+  getNotifications(
+    gymId: string
+  ): Observable<AppNotification[]> {
+
+    const notificationsRef =
+      collection(
+        this.firestore,
+        `gyms/${gymId}/notifications`
+      );
+
+    return collectionData(
+      notificationsRef,
+      {
+        idField: 'id'
+      }
+    ) as Observable<
+      AppNotification[]
+    >;
+
   }
 
-  error(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 5000,
+  async createNotification(
+    gymId: string,
+    notification: AppNotification
+  ): Promise<void> {
 
-      panelClass: ['error-snackbar'],
-    });
+    await setDoc(
+
+      doc(
+        this.firestore,
+        `gyms/${gymId}/notifications/${notification.id}`
+      ),
+
+      notification
+
+    );
+
   }
 
-  warning(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 4000,
+  async markAsRead(
+    gymId: string,
+    notificationId: string
+  ): Promise<void> {
 
-      panelClass: ['warning-snackbar'],
-    });
+    await updateDoc(
+
+      doc(
+        this.firestore,
+        `gyms/${gymId}/notifications/${notificationId}`
+      ),
+
+      {
+        read: true
+      }
+
+    );
+
   }
 
-  info(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 3000,
+  // =========================
+  // Membership Expiry Logic
+  // =========================
 
-      panelClass: ['info-snackbar'],
-    });
-  }
+  getMembershipExpiryNotifications(
+    members: Member[]
+  ): NotificationItem[] {
 
-  getMembershipExpiryNotifications(members: Member[]): NotificationItem[] {
-    const today = new Date();
+    const today =
+      new Date();
 
-    const next7Days = new Date();
+    const next7Days =
+      new Date();
 
-    next7Days.setDate(next7Days.getDate() + 7);
+    next7Days.setDate(
+      next7Days.getDate() + 7
+    );
 
     return members
-      .filter((member) => {
+
+      .filter(member => {
+
         if (!member.expiryDate) {
           return false;
         }
 
-        const expiry = new Date(member.expiryDate);
+        const expiry =
+          new Date(member.expiryDate);
 
-        return expiry >= today && expiry <= next7Days;
+        return (
+          expiry >= today &&
+          expiry <= next7Days
+        );
+
       })
-      .map((member) => {
-        const days = this.daysRemaining(member.expiryDate);
+
+      .map(member => {
+
+        const days =
+          this.daysRemaining(
+            member.expiryDate
+          );
 
         return {
+
           id: member.id,
 
           title: 'Membership Expiry',
 
-          message: `${member.name} expires in ${days} day${days > 1 ? 's' : ''}`,
+          message:
+            `${member.name} expires in ${days} day${days > 1 ? 's' : ''}`,
 
           type: 'warning',
 
-          createdAt: Date.now(),
+          createdAt: Date.now()
+
         };
+
       });
+
   }
 
-  daysRemaining(expiryDate: string): number {
-    const today = new Date();
+  daysRemaining(
+    expiryDate: string
+  ): number {
 
-    const expiry = new Date(expiryDate);
+    const today =
+      new Date();
 
-    const diff = expiry.getTime() - today.getTime();
+    const expiry =
+      new Date(expiryDate);
 
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const diff =
+      expiry.getTime() -
+      today.getTime();
+
+    return Math.ceil(
+      diff /
+      (1000 * 60 * 60 * 24)
+    );
+
   }
-  
+
+  // =========================
+  // Toast Messages
+  // =========================
+
+  success(
+    message: string
+  ): void {
+
+    this.snackBar.open(
+      message,
+      'Close',
+      {
+        duration: 3000,
+        panelClass: [
+          'success-snackbar'
+        ]
+      }
+    );
+
+  }
+
+  error(
+    message: string
+  ): void {
+
+    this.snackBar.open(
+      message,
+      'Close',
+      {
+        duration: 5000,
+        panelClass: [
+          'error-snackbar'
+        ]
+      }
+    );
+
+  }
+
+  warning(
+    message: string
+  ): void {
+
+    this.snackBar.open(
+      message,
+      'Close',
+      {
+        duration: 4000,
+        panelClass: [
+          'warning-snackbar'
+        ]
+      }
+    );
+
+  }
+
+  info(
+    message: string
+  ): void {
+
+    this.snackBar.open(
+      message,
+      'Close',
+      {
+        duration: 3000,
+        panelClass: [
+          'info-snackbar'
+        ]
+      }
+    );
+
+  }
+
 }
