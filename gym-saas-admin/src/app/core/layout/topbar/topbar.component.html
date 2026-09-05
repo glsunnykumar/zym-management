@@ -6,12 +6,16 @@
 
   </button>
 
+
+  
+
   <div class="page-title">
 
     <h2>{{ navigation.title() }}</h2>
 
     @if (navigation.subtitle()) {
-    <span>{{ navigation.subtitle() }}</span>
+    <!-- <span>{{ navigation.subtitle() }}</span> -->
+     <span></span>
     }
 
   </div>
@@ -36,35 +40,56 @@
 
 
 
-  <mat-menu #notificationMenu="matMenu">
+<mat-menu #notificationMenu="matMenu">
+
+  @if (notifications().length === 0) {
+
+    <div class="notification-empty">
+
+      No Notifications
+
+    </div>
+
+  }
 
   @for (
-    notification of notifications();
-    track notification.id
+    item of notifications();
+    track item.id
   ) {
 
-    <button mat-menu-item
-     (click)="markAsRead(notification)"
-    >
-      {{ notification.message }}
+    <button
+      mat-menu-item
+      (click)="markAsRead(item)">
+
+      <div class="notification-item">
+
+        <div class="notification-title">
+
+          {{ item.memberName }}
+
+        </div>
+
+        <div class="notification-message">
+
+          {{ item.message }}
+
+        </div>
+
+      </div>
+
     </button>
 
   }
 
 </mat-menu>
 
-  <button
+<button
   mat-icon-button
+  [matBadge]="notifications().length"
+  matBadgeColor="warn"
   [matMenuTriggerFor]="notificationMenu">
 
-  <mat-icon
-    [matBadge]="notifications().length"
-    matBadgeColor="warn"
-    [matBadgeHidden]="notifications().length === 0">
-
-    notifications
-
-  </mat-icon>
+  <mat-icon>notifications</mat-icon>
 
 </button>
 

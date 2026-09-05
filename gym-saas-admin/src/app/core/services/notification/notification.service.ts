@@ -76,7 +76,7 @@ export class NotificationService {
 
       doc(
         this.firestore,
-        `gyms/${gymId}/notifications/${notification.id}`
+        `notifications/${notification.id}`
       ),
 
       notification
@@ -85,25 +85,23 @@ export class NotificationService {
 
   }
 
+
   async markAsRead(
-    gymId: string,
-    notificationId: string
-  ): Promise<void> {
+  id: string
+): Promise<void> {
 
-    await updateDoc(
+  await updateDoc(
+    doc(
+      this.firestore,
+      `notifications/${id}`
+    ),
+    {
+      read: true
+    }
+  );
 
-      doc(
-        this.firestore,
-        `gyms/${gymId}/notifications/${notificationId}`
-      ),
+}
 
-      {
-        read: true
-      }
-
-    );
-
-  }
 
   // =========================
   // Membership Expiry Logic

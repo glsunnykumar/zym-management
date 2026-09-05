@@ -107,10 +107,10 @@ export class TopbarComponent implements OnInit {
   }
 
   async markAsRead(notification: AppNotification): Promise<void> {
-    try {
-      await this.notificationService.markAsRead('1', notification.id);
-    } catch (error) {
-      console.error('Failed to mark notification as read', error);
-    }
+    await this.notificationService.markAsRead(notification.id);
   }
+
+
+  
+
 }
